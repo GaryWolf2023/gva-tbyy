@@ -24,6 +24,9 @@ func (p *PayloadService) CreatePayloadOne(payload request.CreatePayload) error {
 	var payloadHeader = testpayloadone.Header{}
 	var payloadMeta = testpayloadone.Meta{}
 	var payloadContent = testpayloadone.PayloadContent{}
+
+	var jobIdPayload = testpayloadone.JobIdPayload{}
+
 	payloadDoc.Active = true
 	payloadDoc.PayloadId = fmt.Sprintf("%v&%s", timestamp, payload.JobId)
 	payloadHeader.Business = payload.Business
@@ -54,44 +57,77 @@ func (p *PayloadService) CreatePayloadOne(payload request.CreatePayload) error {
 		return err
 	}
 	global.GVA_DB.Create(&payloadDoc)
+
+	jobIdPayload.JobID = payload.JobId
+	jobIdPayload.Unique = payload.Unique
+	jobIdPayload.PayloadId = fmt.Sprintf("%v&%s", timestamp, payload.JobId)
+	err1 := global.GVA_DB.AutoMigrate(&jobIdPayload)
+	if err1 != nil {
+		return err1
+	}
+	global.GVA_DB.Create(&jobIdPayload)
 	return nil
 }
 
 func (p *PayloadService) UpdatePayloadOne(payload request.UpdatePayload) error {
 	var updatePayload testpayloadone.PayloadDoc
-	//先查找数据
+	var payloadContent testpayloadone.PayloadContent //先查找数据
 	//再将数据中的字段更换然后在update
-	tx := global.GVA_DB.Where("payload_id = ?", payload.PayloadId).First(&updatePayload)
-	fmt.Println(tx)
+	global.GVA_DB.Table("payload_doc").Where("payload_id = ?", payload.PayloadId).First(&updatePayload)
+	fmt.Println(updatePayload)
+	err1 := json.Unmarshal([]byte(updatePayload.Payload), &payloadContent)
+	if err1 != nil {
+		fmt.Println("结构体转换失败")
+		return err1
+	}
+	fmt.Println(payloadContent)
+	payloadContent.Content = payload.PayloadContent
+	jsonPaylaod, _ := json.Marshal(payloadContent)
+	updatePayload.Payload = string(jsonPaylaod)
+	global.GVA_DB.Table("payload_doc").Where("active = ? AND payload_id = ?", true, payload.PayloadId).Update("payload", string(jsonPaylaod))
 	return nil
 }
+
 func (p *PayloadService) DeletePayloadOne(reqBody request.DeletePayload) error {
-	var resData response.PayloadDoc
-	err := global.GVA_DB.Where("payload_id = ?", reqBody.PayloadId).Find(&resData).Limit(1)
+	//var resData response.PayloadDoc
+	fmt.Println(reqBody)
+	err := global.GVA_DB.Table("payload_doc").Where("payload_id = ?", reqBody.PayloadId).Update("active", false)
 	if err != nil {
 		return err.Error
 	} else {
 		return nil
 	}
-
 }
 
 // 根据payloadID获取payload
-func (p *PayloadService) GetPayloadById(reqBody request.GetPayloadById) (res string) {
+func (p *PayloadService) GetPayloadById(reqBody request.GetPayloadById) (res response.PayloadDoc) {
 	var resData response.PayloadDoc
-	global.GVA_DB.Where("payload_id = ?", reqBody.PayloadId).First(&resData)
-	return ""
+	fmt.Println("1111111111111111")
+	global.GVA_DB.Table("payload_doc").First(&resData, "payload_id = ?", reqBody.PayloadId)
+	return resData
 }
 
 // 根据JobIdpayload
-func (p *PayloadService) GetPayloadList(reqBody request.GetPayloadList) (res string) {
-	var resData []response.PayloadDoc
+func (p *PayloadService) GetPayloadList(reqBody request.GetPayloadList) (res []response.PayloadList) {
+	page := reqBody.Page
+	pageSize := reqBody.PageSize
+	if pageSize == 0 {
+		pageSize = 10
+	}
+	if page == 0 {
+		page = 1
+	}
+
+	limit := pageSize
+	offset := pageSize * (page - 1)
+
+	var resData []response.PayloadList
 	if reqBody.JobId != "" {
-		global.GVA_DB.Table("payload_doc").Where("JobId = ?", reqBody.JobId).Find(&resData)
+		global.GVA_DB.Table("job_id_payload").Offset(offset).Limit(limit).Where("job_id = ?", reqBody.JobId).Find(&resData)
 		fmt.Println(resData)
-		return ""
+		return resData
 	} else {
-		global.GVA_DB.Table("payload_doc").Where("Unique = ?", reqBody.Unique).Find(&resData)
-		return ""
+		global.GVA_DB.Table("job_id_payload").Offset(offset).Limit(limit).Where("unique = ?", reqBody.Unique).Find(&resData)
+		return resData
 	}
 }

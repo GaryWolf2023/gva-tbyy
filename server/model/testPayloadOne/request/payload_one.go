@@ -13,7 +13,7 @@ type CreatePayload struct {
 type UpdatePayload struct {
 	PayloadId      string `json:"payload_id" bind:"required"`
 	PayloadContent string `json:"payload_content" bind:"required"`
-	SaveHis        string `json:"save_his" bind:"required"`
+	SaveHis        bool   `json:"save_his" bind:"required"`
 }
 
 type DeletePayload struct {
@@ -24,6 +24,8 @@ type GetPayloadById struct {
 }
 
 type GetPayloadList struct {
-	JobId  string `json:"job_id"`
-	Unique string `json:"unique" bind:"required"`
+	JobId    string `json:"job_id"`
+	Unique   string `json:"unique" bind:"required"`
+	PageSize int    `json:"page_size"`
+	Page     int    `json:"page"`
 }

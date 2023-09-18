@@ -1,6 +1,7 @@
 package testPayload
 
 import (
+	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/testPayloadOne/request"
 	"github.com/gin-gonic/gin"
@@ -23,10 +24,12 @@ func (t *TestPayloadOne) CreatePayload(c *gin.Context) {
 	err1 := c.ShouldBindJSON(&payloadOne)
 	if err1 != nil {
 		response.FailWithMessage("创建失败,参数错误", c)
+		return
 	}
 	err2 := PayloadService.CreatePayloadOne(payloadOne)
 	if err2 != nil {
 		response.FailWithMessage("创建失败", c)
+		return
 	}
 	response.Ok(c)
 }
@@ -43,14 +46,17 @@ func (t *TestPayloadOne) CreatePayload(c *gin.Context) {
 func (t *TestPayloadOne) UpdatePayload(c *gin.Context) {
 	payload := request.UpdatePayload{}
 	err1 := c.ShouldBindJSON(&payload)
+	fmt.Println(payload)
 	if err1 != nil {
 		response.FailWithMessage("参数错误", c)
+		return
 	}
 	err2 := PayloadService.UpdatePayloadOne(payload)
 	if err2 != nil {
 		response.FailWithMessage("更新失败", c)
+		return
 	}
-	response.Ok(c)
+	response.OkWithMessage("更新成功", c)
 }
 
 // DeletePayload
@@ -67,10 +73,12 @@ func (t *TestPayloadOne) DeletePayload(c *gin.Context) {
 	err1 := c.ShouldBindJSON(&payload)
 	if err1 != nil {
 		response.FailWithMessage("参数错误", c)
+		return
 	}
 	err2 := PayloadService.DeletePayloadOne(payload)
 	if err2 != nil {
 		response.FailWithMessage("更新失败", c)
+		return
 	} else {
 		response.Ok(c)
 	}
@@ -90,6 +98,7 @@ func (t *TestPayloadOne) GetPayloadById(c *gin.Context) {
 	err1 := c.ShouldBindJSON(&payload)
 	if err1 != nil {
 		response.FailWithMessage("参数错误", c)
+		return
 	}
 	data := PayloadService.GetPayloadById(payload)
 	response.OkWithData(data, c)
@@ -109,6 +118,7 @@ func (t *TestPayloadOne) GetPayloadList(c *gin.Context) {
 	err1 := c.ShouldBindJSON(&payload)
 	if err1 != nil {
 		response.FailWithMessage("参数错误", c)
+		return
 	}
 	data := PayloadService.GetPayloadList(payload)
 	response.OkWithData(data, c)

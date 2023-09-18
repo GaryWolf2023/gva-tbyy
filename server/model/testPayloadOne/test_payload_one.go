@@ -12,6 +12,13 @@ type PayloadDoc struct {
 	Payload      string `json:"payload" gorm:"column:payload"`
 }
 
+type JobIdPayload struct {
+	global.GVA_MODEL
+	JobID     string `json:"job_id" gorm:"column:job_id"`
+	Unique    string `json:"unique" gorm:"column:unique"`
+	PayloadId string `json:"payload_id" gorm:"column:payload_id"`
+}
+
 type Header struct {
 	JobId     string
 	Unique    string
@@ -33,6 +40,9 @@ type Participent struct {
 	Name string
 }
 
+func (j *JobIdPayload) TableName() string {
+	return "job_id_payload"
+}
 func (p *PayloadDoc) TableName() string {
 	return "payload_doc"
 }

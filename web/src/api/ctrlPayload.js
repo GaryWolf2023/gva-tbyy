@@ -51,7 +51,20 @@ export const updatePayload = (obj) => {
  */
 export const getPayloadById = (obj) => {
   return service({
-    url: "/payload/updatePayload",
+    url: "/payload/getPayloadById",
+    method: "POST",
+    data: obj,
+  });
+};
+
+/**
+ * 获取payload列表
+ * @param {string} ?payload_id
+ * @returns
+ */
+export const deletePayload = (obj) => {
+  return service({
+    url: "/payload/deletePayload",
     method: "POST",
     data: obj,
   });

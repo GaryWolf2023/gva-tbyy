@@ -2,7 +2,9 @@
     <div class="editor-top">
         <el-button type="primary" plain size="small" @click="createPayloadFunc">上传</el-button>
         <el-button type="primary" plain size="small" @click="getPayloadListFunc">获取列表</el-button>
+        <el-button type="primary" plain size="small" @click="getOnePayloadFunc">获取单条记录</el-button>
         <el-button type="primary" plain size="small" @click="updatePayloadFunc">更改</el-button>
+        <el-button type="primary" plain size="small" @click="deletePayloadFunc">删除</el-button>
         <el-button type="primary" plain size="small">检索</el-button>
         <el-dropdown>
             <span class="el-dropdown-link">
@@ -60,7 +62,7 @@ import CreateForm from '@/components/createForm/index.vue'
 import MdEditor from '@/components/createForm/index.vue'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { createPayload, getPayloadList, updatePayload } from '@/api/ctrlPayload'
+import { createPayload, getPayloadList, updatePayload, getPayloadById, deletePayload } from '@/api/ctrlPayload'
 
 const route = useRoute()
 const editorType = route.query.editorType
@@ -71,14 +73,26 @@ const payloadList = ref([])
 const getPayloadListFunc = () => {
     getPayloadList({
         job_id: 'asdasdhabuhsbduhbasda',
-        unique: '222222222222'
+        // unique: '222222222222'
+    }).then(res => {
+        console.log(res)
+        // payloadList.value = res.data
+    })
+}
+const getOnePayloadFunc = () => {
+    getPayloadById({
+        payload_id: '1695005627732&asdasdhabuhsbduhbasda'
     }).then(res => {
         console.log(res)
         // payloadList.value = res.data
     })
 }
 const updatePayloadFunc = () => {
-    updatePayload().then(res => {
+    updatePayload({
+        payload_content: 'u====================================================b',
+        payload_id: '1695015274364&asdasdhabuhsbduhbasda',
+        save_his: false
+    }).then(res => {
         console.log(res)
     })
 }
@@ -93,6 +107,11 @@ const createPayloadFunc = () => {
         doc_type: "xemr"
     }).then(res => {
         console.log(res);
+    })
+}
+const deletePayloadFunc = () => {
+    deletePayload({payload_id: '1695015274364&asdasdhabuhsbduhbasda'}).then(res => {
+        console.log(res)
     })
 }
 </script>
