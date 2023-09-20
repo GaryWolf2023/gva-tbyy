@@ -105,7 +105,7 @@
             </transition>
           </div>
         </router-view>
-        <BottomInfo />
+        <!-- <BottomInfo /> -->
         <setting />
         <CommandMenu ref="command"/>
       </el-main>
@@ -124,7 +124,7 @@ export default {
 import Aside from '@/view/layout/aside/index.vue'
 import HistoryComponent from '@/view/layout/aside/historyComponent/history.vue'
 import Search from '@/view/layout/search/search.vue'
-import BottomInfo from '@/view/layout/bottomInfo/bottomInfo.vue'
+// import BottomInfo from '@/view/layout/bottomInfo/bottomInfo.vue'
 import CustomPic from '@/components/customPic/index.vue'
 import CommandMenu from '@/components/commandMenu/index.vue'
 import Setting from './setting/index.vue'

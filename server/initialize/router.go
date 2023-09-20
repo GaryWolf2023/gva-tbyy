@@ -20,6 +20,7 @@ func Routers() *gin.Engine {
 	systemRouter := router.RouterGroupApp.System
 	exampleRouter := router.RouterGroupApp.Example
 	payloadRouter := router.RouterGroupApp.TestPayload
+	participantRouter := router.RouterGroupApp.Participant
 	// 如果想要不使用nginx代理前端网页，可以修改 web/.env.production 下的
 	// VUE_APP_BASE_API = /
 	// VUE_APP_BASE_PATH = http://localhost
@@ -72,8 +73,11 @@ func Routers() *gin.Engine {
 		exampleRouter.InitCustomerRouter(PrivateGroup)              // 客户路由
 		exampleRouter.InitFileUploadAndDownloadRouter(PrivateGroup) // 文件上传下载功能路由
 
-		payloadRouter.InitoneRouter(PrivateGroup, PublicGroup) //payload上传下载
+		payloadRouter.InitoneRouter(PrivateGroup, PublicGroup)         // payload上传下载
+		payloadRouter.InitPayloadTempRouter(PrivateGroup, PublicGroup) // payload模板管理，后续得电子病历模板管理
 
+		participantRouter.InitTempManageRouter(PrivateGroup, PublicGroup)  // 参与人模板管理
+		participantRouter.InitParticipantRouter(PrivateGroup, PublicGroup) // 参与人管理， 前端使用参与人的时候需要对参与人进行修改的时候
 	}
 
 	global.GVA_LOG.Info("router register success")

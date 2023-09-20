@@ -61,14 +61,17 @@ func (p *PayloadService) CreatePayloadOne(payload request.CreatePayload) error {
 	jobIdPayload.JobID = payload.JobId
 	jobIdPayload.Unique = payload.Unique
 	jobIdPayload.PayloadId = fmt.Sprintf("%v&%s", timestamp, payload.JobId)
+	//只需要第一次创建，后面就不用了
 	err1 := global.GVA_DB.AutoMigrate(&jobIdPayload)
 	if err1 != nil {
+		global.GVA_LOG.Error("创建数据库失败")
 		return err1
 	}
 	global.GVA_DB.Create(&jobIdPayload)
 	return nil
 }
 
+// UpdatePayloadOne 更新payload
 func (p *PayloadService) UpdatePayloadOne(payload request.UpdatePayload) error {
 	var updatePayload testpayloadone.PayloadDoc
 	var payloadContent testpayloadone.PayloadContent //先查找数据
@@ -78,16 +81,18 @@ func (p *PayloadService) UpdatePayloadOne(payload request.UpdatePayload) error {
 	err1 := json.Unmarshal([]byte(updatePayload.Payload), &payloadContent)
 	if err1 != nil {
 		fmt.Println("结构体转换失败")
+		global.GVA_LOG.Error("错误，无法将json转化为结构体")
 		return err1
 	}
 	fmt.Println(payloadContent)
 	payloadContent.Content = payload.PayloadContent
-	jsonPaylaod, _ := json.Marshal(payloadContent)
-	updatePayload.Payload = string(jsonPaylaod)
-	global.GVA_DB.Table("payload_doc").Where("active = ? AND payload_id = ?", true, payload.PayloadId).Update("payload", string(jsonPaylaod))
+	jsonPayload, _ := json.Marshal(payloadContent)
+	updatePayload.Payload = string(jsonPayload)
+	global.GVA_DB.Table("payload_doc").Where("active = ? AND payload_id = ?", true, payload.PayloadId).Update("payload", string(jsonPayload))
 	return nil
 }
 
+// DeletePayloadOne 存档payload
 func (p *PayloadService) DeletePayloadOne(reqBody request.DeletePayload) error {
 	//var resData response.PayloadDoc
 	fmt.Println(reqBody)
@@ -99,15 +104,14 @@ func (p *PayloadService) DeletePayloadOne(reqBody request.DeletePayload) error {
 	}
 }
 
-// 根据payloadID获取payload
+// GetPayloadById 根据payloadID获取payload
 func (p *PayloadService) GetPayloadById(reqBody request.GetPayloadById) (res response.PayloadDoc) {
 	var resData response.PayloadDoc
-	fmt.Println("1111111111111111")
 	global.GVA_DB.Table("payload_doc").First(&resData, "payload_id = ?", reqBody.PayloadId)
 	return resData
 }
 
-// 根据JobIdpayload
+// GetPayloadList 根据JobId或unique获取payload
 func (p *PayloadService) GetPayloadList(reqBody request.GetPayloadList) (res []response.PayloadList) {
 	page := reqBody.Page
 	pageSize := reqBody.PageSize

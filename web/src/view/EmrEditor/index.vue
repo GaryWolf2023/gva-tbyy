@@ -42,13 +42,13 @@
             </template>
         </el-dropdown>
     </div>
-    <div class="h-80 w-full">
+    <!-- <div class="h-80 w-full">
         <div v-for="it in payloadList">
             <span>{{ it.payload_id }}</span>
             -------------------------------------------------------------------
             <el-button>修改</el-button>
         </div>
-    </div>
+    </div> -->
     <div class="show-editor">
         <x-emr v-if="editorType==='xemr'" :docname="docName" ></x-emr>
         <create-form v-if="editorType==='form'"></create-form>
@@ -119,7 +119,7 @@ const deletePayloadFunc = () => {
 <style lang="scss" scoped>
 .editor-top {
     margin-top: 96px;
-    height: 72px;
+    height: 36px;
     padding: 0 20px;
     padding-top: 10px;
     .el-button {
@@ -128,6 +128,6 @@ const deletePayloadFunc = () => {
 }
 .show-editor {
     width: 100%;
-    height: calc(100vh - 168px);
+    height: calc(100vh - 132px);
 }
 </style>
