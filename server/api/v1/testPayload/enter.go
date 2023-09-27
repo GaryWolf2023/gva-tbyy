@@ -8,5 +8,6 @@ type ApiGroup struct {
 }
 
 var (
-	PayloadService = new(payloadOne.PayloadService)
+	PayloadService     = new(payloadOne.PayloadService)
+	PayloadTempService = new(payloadOne.PayloadTempService)
 )

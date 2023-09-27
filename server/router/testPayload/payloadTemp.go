@@ -13,9 +13,10 @@ func (p *PayloadTempRouter) InitPayloadTempRouter(Router *gin.RouterGroup, Route
 
 	payloadTempApi := v1.ApiGroupApp.TestPayloadApiGroup.PayloadTemplate
 	{
-		payloadTempRouter.POST("createTemp", payloadTempApi.GetPayloadTemp)
+		payloadTempRouter.POST("createTemp", payloadTempApi.CreatePayloadTemp)
 		payloadTempRouter.PUT("updateTemp", payloadTempApi.UpdatePayloadTemp)
 		payloadTempRouter.DELETE("deleteTemp", payloadTempApi.DeletePayloadTemp)
+		payloadTempRouter.GET("getTempList", payloadTempApi.GetPayloadTempList)
 		payloadTempRouter.GET("getTemp", payloadTempApi.GetPayloadTemp)
 	}
 }

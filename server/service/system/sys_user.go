@@ -3,6 +3,7 @@ package system
 import (
 	"errors"
 	"fmt"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/system/response"
 	"time"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
@@ -31,6 +32,32 @@ func (userService *UserService) Register(u system.SysUser) (userInter system.Sys
 	u.UUID = uuid.Must(uuid.NewV4())
 	err = global.GVA_DB.Create(&u).Error
 	return u, err
+}
+
+// GetStaffInfo
+// @author: lby
+// @function: GetStaffInfo
+// @description: 获取多个员工信息
+// @param: u *model.SysUser
+// @return: err error, userInter *model.SysUser
+func (userService *UserService) GetStaffInfo(search string) (staffInfo []response.StaffInfo, err error) {
+	var resStaffInfo []response.StaffInfo
+	global.GVA_DB.Table("hr_employee").Where("name LIKE ?", fmt.Sprintf("%%%s%%", search)).Find(&resStaffInfo)
+	fmt.Println(resStaffInfo)
+	return resStaffInfo, nil
+}
+
+// GetStaff
+// @author: lby
+// @function: GetStaff
+// @description: 获取单个员工信息
+// @param: u *model.SysUser
+// @return: err error, userInter *model.SysUser
+func (userService *UserService) GetStaff(id string) (data any, err error) {
+	var resStaff response.OneStaffInfo
+	global.GVA_DB.Table("hr_employee").Where("id = ?", id).First(&resStaff)
+	//global.GVA_DB.Table("").Where("").First()
+	return resStaff, nil
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)
@@ -165,16 +192,15 @@ func (userService *UserService) DeleteUser(id int) (err error) {
 
 func (userService *UserService) SetUserInfo(req system.SysUser) error {
 	return global.GVA_DB.Model(&system.SysUser{}).
-		Select("updated_at", "nick_name", "header_img", "phone", "email", "sideMode", "enable").
+		Select("updated_at", "nick_name", "header_img", "sideMode", "enable", "employee_id").
 		Where("id=?", req.ID).
 		Updates(map[string]interface{}{
-			"updated_at": time.Now(),
-			"nick_name":  req.NickName,
-			"header_img": req.HeaderImg,
-			"phone":      req.Phone,
-			"email":      req.Email,
-			"side_mode":  req.SideMode,
-			"enable":     req.Enable,
+			"updated_at":  time.Now(),
+			"nick_name":   req.NickName,
+			"header_img":  req.HeaderImg,
+			"side_mode":   req.SideMode,
+			"enable":      req.Enable,
+			"employee_id": req.EmployeeID,
 		}).Error
 }
 

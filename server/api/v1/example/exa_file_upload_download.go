@@ -18,7 +18,7 @@ type FileUploadAndDownloadApi struct{}
 // @Security  ApiKeyAuth
 // @accept    multipart/form-data
 // @Produce   application/json
-// @Param     file  formData  file                                                           true  "上传文件示例"
+// @Param     file  formData  file                                                           		 true  "上传文件示例"
 // @Success   200   {object}  response.Response{data=exampleRes.ExaFileResponse,msg=string}  "上传文件示例,返回包括文件详情"
 // @Router    /fileUploadAndDownload/upload [post]
 func (b *FileUploadAndDownloadApi) UploadFile(c *gin.Context) {

@@ -76,24 +76,10 @@
             <el-tab-pane label="账号绑定" name="second">
               <ul>
                 <li>
-                  <p class="title">密保手机</p>
+                  <p class="title">绑定员工</p>
                   <p class="desc">
-                    已绑定手机:{{ userStore.userInfo.phone }}
-                    <a href="javascript:void(0)" @click="changePhoneFlag = true">立即修改</a>
-                  </p>
-                </li>
-                <li>
-                  <p class="title">密保邮箱</p>
-                  <p class="desc">
-                    已绑定邮箱：{{ userStore.userInfo.email }}
-                    <a href="javascript:void(0)" @click="changeEmailFlag = true">立即修改</a>
-                  </p>
-                </li>
-                <li>
-                  <p class="title">密保问题</p>
-                  <p class="desc">
-                    未设置密保问题
-                    <a href="javascript:void(0)">去设置</a>
+                    已绑定员工:{{ "name" }}
+                    <!-- <a href="javascript:void(0)" @click="changePhoneFlag = true">立即修改</a> -->
                   </p>
                 </li>
                 <li>
@@ -109,6 +95,9 @@
               </ul>
             </el-tab-pane>
           </el-tabs>
+        </div>
+        <div class="staff-addcount">
+          <p class="staff-top">员工信息</p>
         </div>
       </el-col>
     </el-row>
@@ -384,6 +373,11 @@ const changeEmail = async() => {
   }
 }
 
+const getMyStaffInfo = () => {
+  getStaffinfo().then(res => {
+    
+  })
+}
 </script>
 
 <style lang="scss">
@@ -465,6 +459,18 @@ const changeEmail = async() => {
         }
       }
     }
+  }
+}
+.staff-addcount {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  .staff-top {
+    line-height: 36px;
+    border-bottom: 2px solid rgba(204, 204, 204, 0.637);
+    color: rgb(58, 68, 216);
+    font-weight: 600;
   }
 }
 .user-addcount {

@@ -47,7 +47,7 @@ func (b *BaseApi) Login(c *gin.Context) {
 		global.BlackCache.Set(key, 1, time.Second*time.Duration(openCaptchaTimeOut))
 	}
 
-	var oc bool = openCaptcha == 0 || openCaptcha < interfaceToInt(v)
+	var oc = openCaptcha == 0 || openCaptcha < interfaceToInt(v)
 
 	if !oc || store.Verify(l.CaptchaId, l.Captcha, true) {
 		u := &system.SysUser{Username: l.Username, Password: l.Password}
@@ -157,7 +157,7 @@ func (b *BaseApi) Register(c *gin.Context) {
 			AuthorityId: v,
 		})
 	}
-	user := &system.SysUser{Username: r.Username, NickName: r.NickName, Password: r.Password, HeaderImg: r.HeaderImg, AuthorityId: r.AuthorityId, Authorities: authorities, Enable: r.Enable, Phone: r.Phone, Email: r.Email}
+	user := &system.SysUser{Username: r.Username, NickName: r.NickName, Password: r.Password, HeaderImg: r.HeaderImg, AuthorityId: r.AuthorityId, Authorities: authorities, Enable: r.Enable}
 	userReturn, err := userService.Register(*user)
 	if err != nil {
 		global.GVA_LOG.Error("注册失败!", zap.Error(err))
@@ -165,6 +165,50 @@ func (b *BaseApi) Register(c *gin.Context) {
 		return
 	}
 	response.OkWithDetailed(systemRes.SysUserResponse{User: userReturn}, "注册成功", c)
+}
+
+// GetPersonInfo
+// @Tags     SysUser
+// @Summary  查找员工信息列表
+// @Produce   application/json
+// @Param    data  body      systemReq.Register   true  "用户名, 昵称, 密码, 角色ID"
+// @Success  200   {object}  response.Response{data=systemRes.SysUserResponse,msg=string}  "用户注册账号,返回包括用户信息"
+// @Router   /user/admin_register [GET]
+func (b *BaseApi) GetPersonInfo(c *gin.Context) {
+	//var searchStaff systemReq.SearchStaff
+	//err := c.ShouldBindJSON(&searchStaff)
+	//if err != nil {
+	//	response.FailWithMessage("参数错误", c)
+	//	return
+	//}
+	searchData := c.Query("searchData")
+	data, err1 := userService.GetStaffInfo(searchData)
+	if err1 != nil {
+		response.FailWithMessage("查找失败", c)
+		return
+	}
+	response.OkWithDetailed(data, "", c)
+}
+
+// GetStaffInfo
+// @Tags     SysUser
+// @Summary  查找单个员工信息
+// @Produce   application/json
+// @Param    data  body
+// @Success  200   {object}  response.Response{data=systemRes.SysUserResponse,msg=string}  "用户注册账号,返回包括用户信息"
+// @Router   /user/admin_register [GET]
+func (b *BaseApi) GetStaffInfo(c *gin.Context) {
+	employeeId := c.Query("id")
+	if employeeId == "" {
+		response.FailWithMessage("参数错误", c)
+		return
+	}
+	data, err := userService.GetStaff(employeeId)
+	if err != nil {
+		response.FailWithMessage("查询失败，请联系管理人员", c)
+		return
+	}
+	response.OkWithDetailed(data, "查询成功", c)
 }
 
 // ChangePassword
@@ -367,12 +411,11 @@ func (b *BaseApi) SetUserInfo(c *gin.Context) {
 		GVA_MODEL: global.GVA_MODEL{
 			ID: user.ID,
 		},
-		NickName:  user.NickName,
-		HeaderImg: user.HeaderImg,
-		Phone:     user.Phone,
-		Email:     user.Email,
-		SideMode:  user.SideMode,
-		Enable:    user.Enable,
+		NickName:   user.NickName,
+		HeaderImg:  user.HeaderImg,
+		SideMode:   user.SideMode,
+		Enable:     user.Enable,
+		EmployeeID: user.EmployeeId,
 	})
 	if err != nil {
 		global.GVA_LOG.Error("设置失败!", zap.Error(err))
@@ -405,8 +448,6 @@ func (b *BaseApi) SetSelfInfo(c *gin.Context) {
 		},
 		NickName:  user.NickName,
 		HeaderImg: user.HeaderImg,
-		Phone:     user.Phone,
-		Email:     user.Email,
 		SideMode:  user.SideMode,
 		Enable:    user.Enable,
 	})

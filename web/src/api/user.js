@@ -1,15 +1,15 @@
-import service from '@/utils/request'
+import service from "@/utils/request";
 // @Summary 用户登录
 // @Produce  application/json
 // @Param data body {username:"string",password:"string"}
 // @Router /base/login [post]
 export const login = (data) => {
   return service({
-    url: '/base/login',
-    method: 'post',
-    data: data
-  })
-}
+    url: "/base/login",
+    method: "post",
+    data: data,
+  });
+};
 
 // @Summary 获取验证码
 // @Produce  application/json
@@ -17,11 +17,11 @@ export const login = (data) => {
 // @Router /base/captcha [post]
 export const captcha = (data) => {
   return service({
-    url: '/base/captcha',
-    method: 'post',
-    data: data
-  })
-}
+    url: "/base/captcha",
+    method: "post",
+    data: data,
+  });
+};
 
 // @Summary 用户注册
 // @Produce  application/json
@@ -29,11 +29,35 @@ export const captcha = (data) => {
 // @Router /base/resige [post]
 export const register = (data) => {
   return service({
-    url: '/user/admin_register',
-    method: 'post',
-    data: data
-  })
-}
+    url: "/user/admin_register",
+    method: "post",
+    data: data,
+  });
+};
+
+// @Summary 获取多个员工列表
+// @Produce  application/json
+// @Param data body searchData
+// @Router /base/getStaff [get]
+export const searchStaff = (data) => {
+  return service({
+    url: "/user/getStaff",
+    method: "GET",
+    params: data,
+  });
+};
+
+// @Summary 获取单个员工信息
+// @Produce  application/json
+// @Param data body searchData
+// @Router /base/getStaffInfo [get]
+export const getStaffinfo = (params) => {
+  return service({
+    url: "/user/getStaffInfo",
+    method: "get",
+    params,
+  });
+};
 
 // @Summary 修改密码
 // @Produce  application/json
@@ -41,11 +65,11 @@ export const register = (data) => {
 // @Router /user/changePassword [post]
 export const changePassword = (data) => {
   return service({
-    url: '/user/changePassword',
-    method: 'post',
-    data: data
-  })
-}
+    url: "/user/changePassword",
+    method: "post",
+    data: data,
+  });
+};
 
 // @Tags User
 // @Summary 分页获取用户列表
@@ -57,11 +81,11 @@ export const changePassword = (data) => {
 // @Router /user/getUserList [post]
 export const getUserList = (data) => {
   return service({
-    url: '/user/getUserList',
-    method: 'post',
-    data: data
-  })
-}
+    url: "/user/getUserList",
+    method: "post",
+    data: data,
+  });
+};
 
 // @Tags User
 // @Summary 设置用户权限
@@ -73,11 +97,11 @@ export const getUserList = (data) => {
 // @Router /user/setUserAuthority [post]
 export const setUserAuthority = (data) => {
   return service({
-    url: '/user/setUserAuthority',
-    method: 'post',
-    data: data
-  })
-}
+    url: "/user/setUserAuthority",
+    method: "post",
+    data: data,
+  });
+};
 
 // @Tags SysUser
 // @Summary 删除用户
@@ -89,11 +113,11 @@ export const setUserAuthority = (data) => {
 // @Router /user/deleteUser [delete]
 export const deleteUser = (data) => {
   return service({
-    url: '/user/deleteUser',
-    method: 'delete',
-    data: data
-  })
-}
+    url: "/user/deleteUser",
+    method: "delete",
+    data: data,
+  });
+};
 
 // @Tags SysUser
 // @Summary 设置用户信息
@@ -105,11 +129,11 @@ export const deleteUser = (data) => {
 // @Router /user/setUserInfo [put]
 export const setUserInfo = (data) => {
   return service({
-    url: '/user/setUserInfo',
-    method: 'put',
-    data: data
-  })
-}
+    url: "/user/setUserInfo",
+    method: "put",
+    data: data,
+  });
+};
 
 // @Tags SysUser
 // @Summary 设置用户信息
@@ -121,11 +145,11 @@ export const setUserInfo = (data) => {
 // @Router /user/setSelfInfo [put]
 export const setSelfInfo = (data) => {
   return service({
-    url: '/user/setSelfInfo',
-    method: 'put',
-    data: data
-  })
-}
+    url: "/user/setSelfInfo",
+    method: "put",
+    data: data,
+  });
+};
 
 // @Tags User
 // @Summary 设置用户权限
@@ -137,11 +161,11 @@ export const setSelfInfo = (data) => {
 // @Router /user/setUserAuthorities [post]
 export const setUserAuthorities = (data) => {
   return service({
-    url: '/user/setUserAuthorities',
-    method: 'post',
-    data: data
-  })
-}
+    url: "/user/setUserAuthorities",
+    method: "post",
+    data: data,
+  });
+};
 
 // @Tags User
 // @Summary 获取用户信息
@@ -152,15 +176,15 @@ export const setUserAuthorities = (data) => {
 // @Router /user/getUserInfo [get]
 export const getUserInfo = () => {
   return service({
-    url: '/user/getUserInfo',
-    method: 'get'
-  })
-}
+    url: "/user/getUserInfo",
+    method: "get",
+  });
+};
 
 export const resetPassword = (data) => {
   return service({
-    url: '/user/resetPassword',
-    method: 'post',
-    data: data
-  })
-}
+    url: "/user/resetPassword",
+    method: "post",
+    data: data,
+  });
+};

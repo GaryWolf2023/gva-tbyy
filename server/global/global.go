@@ -1,6 +1,7 @@
 package global
 
 import (
+	"github.com/minio/minio-go/v7"
 	"sync"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/utils/timer"
@@ -30,6 +31,7 @@ var (
 
 	BlackCache local_cache.Cache
 	lock       sync.RWMutex
+	MINIO      *minio.Client
 )
 
 // GetGlobalDBByDBName 通过名称获取db list中的db

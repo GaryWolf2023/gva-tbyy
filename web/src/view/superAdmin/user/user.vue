@@ -3,22 +3,36 @@
     <warning-bar title="注：右上角头像下拉可切换角色" />
     <div class="gva-table-box">
       <div class="gva-btn-list">
-        <el-button type="primary" icon="plus" @click="addUser">新增用户</el-button>
+        <el-button type="primary" icon="plus" @click="addUser"
+          >新增用户</el-button
+        >
       </div>
-      <el-table
-        :data="tableData"
-        row-key="ID"
-      >
+      <el-table :data="tableData" row-key="ID">
         <el-table-column align="left" label="头像" min-width="75">
           <template #default="scope">
-            <CustomPic style="margin-top:8px" :pic-src="scope.row.headerImg" />
+            <CustomPic style="margin-top: 8px" :pic-src="scope.row.headerImg" />
           </template>
         </el-table-column>
-        <el-table-column align="left" label="ID" min-width="50" prop="ID" />
-        <el-table-column align="left" label="用户名" min-width="150" prop="userName" />
-        <el-table-column align="left" label="昵称" min-width="150" prop="nickName" />
-        <el-table-column align="left" label="手机号" min-width="180" prop="phone" />
-        <el-table-column align="left" label="邮箱" min-width="180" prop="email" />
+        <!-- <el-table-column align="left" label="ID" min-width="50" prop="ID" /> -->
+        <el-table-column
+          align="left"
+          label="用户名"
+          min-width="150"
+          prop="userName"
+        />
+        <el-table-column
+          align="left"
+          label="昵称"
+          min-width="150"
+          prop="nickName"
+        />
+        <!-- <el-table-column align="left" label="绑定身份" min-width="150">
+          <template #default="scope">
+            <el-select >
+              
+            </el-select>
+          </template>
+        </el-table-column> -->
         <el-table-column align="left" label="用户角色" min-width="200">
           <template #default="scope">
             <el-cascader
@@ -26,13 +40,40 @@
               :options="authOptions"
               :show-all-levels="false"
               collapse-tags
-              :props="{ multiple:true,checkStrictly: true,label:'authorityName',value:'authorityId',disabled:'disabled',emitPath:false}"
+              :props="{
+                multiple: true,
+                checkStrictly: true,
+                label: 'authorityName',
+                value: 'authorityId',
+                disabled: 'disabled',
+                emitPath: false,
+              }"
               :clearable="false"
-              @visible-change="(flag)=>{changeAuthority(scope.row,flag,0)}"
-              @remove-tag="(removeAuth)=>{changeAuthority(scope.row,false,removeAuth)}"
+              @visible-change="
+                (flag) => {
+                  changeAuthority(scope.row, flag, 0);
+                }
+              "
+              @remove-tag="
+                (removeAuth) => {
+                  changeAuthority(scope.row, false, removeAuth);
+                }
+              "
             />
           </template>
         </el-table-column>
+        <!-- <el-table-column
+          align="left"
+          label="手机号"
+          min-width="180"
+          prop="phone"
+        />
+        <el-table-column
+          align="left"
+          label="邮箱"
+          min-width="180"
+          prop="email"
+        /> -->
         <el-table-column align="left" label="启用" min-width="150">
           <template #default="scope">
             <el-switch
@@ -40,7 +81,11 @@
               inline-prompt
               :active-value="1"
               :inactive-value="2"
-              @change="()=>{switchEnable(scope.row)}"
+              @change="
+                () => {
+                  switchEnable(scope.row);
+                }
+              "
             />
           </template>
         </el-table-column>
@@ -49,19 +94,37 @@
           <template #default="scope">
             <el-popover v-model="scope.row.visible" placement="top" width="160">
               <p>确定要删除此用户吗</p>
-              <div style="text-align: right; margin-top: 8px;">
-                <el-button type="primary" link @click="scope.row.visible = false">取消</el-button>
-                <el-button type="primary" @click="deleteUserFunc(scope.row)">确定</el-button>
+              <div style="text-align: right; margin-top: 8px">
+                <el-button
+                  type="primary"
+                  link
+                  @click="scope.row.visible = false"
+                  >取消</el-button
+                >
+                <el-button type="primary" @click="deleteUserFunc(scope.row)"
+                  >确定</el-button
+                >
               </div>
               <template #reference>
                 <el-button type="primary" link icon="delete">删除</el-button>
               </template>
             </el-popover>
-            <el-button type="primary" link icon="edit" @click="openEdit(scope.row)">编辑</el-button>
-            <el-button type="primary" link icon="magic-stick" @click="resetPasswordFunc(scope.row)">重置密码</el-button>
+            <el-button
+              type="primary"
+              link
+              icon="edit"
+              @click="openEdit(scope.row)"
+              >编辑</el-button
+            >
+            <el-button
+              type="primary"
+              link
+              icon="magic-stick"
+              @click="resetPasswordFunc(scope.row)"
+              >重置密码</el-button
+            >
           </template>
         </el-table-column>
-
       </el-table>
       <div class="gva-pagination">
         <el-pagination
@@ -82,32 +145,72 @@
       :close-on-press-escape="false"
       :close-on-click-modal="false"
     >
-      <div style="height:60vh;overflow:auto;padding:0 12px;">
-        <el-form ref="userForm" :rules="rules" :model="userInfo" label-width="80px">
-          <el-form-item v-if="dialogFlag === 'add'" label="用户名" prop="userName">
-            <el-input v-model="userInfo.userName" />
+      <div style="height: 60vh; overflow: auto; padding: 0 12px">
+        <el-form
+          ref="userForm"
+          :rules="rules"
+          :model="userInfo"
+          label-width="80px"
+        >
+          <el-form-item
+            v-if="dialogFlag === 'add'"
+            label="账号"
+            prop="userName"
+          >
+            <el-input v-model="userInfo.userName" placeholder="登陆账号" />
           </el-form-item>
-          <el-form-item v-if="dialogFlag === 'add'" label="密码" prop="password">
-            <el-input v-model="userInfo.password" />
+          <el-form-item
+            v-if="dialogFlag === 'add'"
+            label="密码"
+            prop="password"
+          >
+            <el-input v-model="userInfo.password" placeholder="登录密码" />
           </el-form-item>
           <el-form-item label="昵称" prop="nickName">
-            <el-input v-model="userInfo.nickName" />
-          </el-form-item>
-          <el-form-item label="手机号" prop="phone">
-            <el-input v-model="userInfo.phone" />
-          </el-form-item>
-          <el-form-item label="邮箱" prop="email">
-            <el-input v-model="userInfo.email" />
+            <el-input v-model="userInfo.nickName" placeholder="自定义名称" />
           </el-form-item>
           <el-form-item label="用户角色" prop="authorityId">
             <el-cascader
               v-model="userInfo.authorityIds"
-              style="width:100%"
+              style="width: 100%"
               :options="authOptions"
               :show-all-levels="false"
-              :props="{ multiple:true,checkStrictly: true,label:'authorityName',value:'authorityId',disabled:'disabled',emitPath:false}"
+              :props="{
+                multiple: true,
+                checkStrictly: true,
+                label: 'authorityName',
+                value: 'authorityId',
+                disabled: 'disabled',
+                emitPath: false,
+              }"
               :clearable="false"
             />
+          </el-form-item>
+          <el-form-item label="身份绑定" prop="employeeId">
+            <el-select
+              v-model="userInfo.employeeId"
+              style="width: 100%"
+              clearable
+              filterable
+              remote
+              reserve-keyword
+              placeholder="请按下enter键检索"
+              :remote-method="searchPerson"
+            >
+              <el-option
+                v-for="item in staffList"
+                :key="item.id"
+                :label="item.name + '----' + item.job_title"
+                :value="item.id"
+              />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="员工信息" prop="" v-if="userInfo.employeeId !== ''">
+            <div class="w-full border border-yellow-200">
+              <p>姓名：{{ staffInfo.name }}</p>
+              <p>职位：{{ staffInfo.job_title }}</p>
+              <p>职级：{{ staffInfo.performanceclass }}</p>
+            </div>
           </el-form-item>
           <el-form-item label="启用" prop="disabled">
             <el-switch
@@ -118,20 +221,29 @@
             />
           </el-form-item>
           <el-form-item label="头像" label-width="80px">
-            <div style="display:inline-block" @click="openHeaderChange">
-              <img v-if="userInfo.headerImg" alt="头像" class="header-img-box" :src="(userInfo.headerImg && userInfo.headerImg.slice(0, 4) !== 'http')?path+userInfo.headerImg:userInfo.headerImg">
+            <div style="display: inline-block" @click="openHeaderChange">
+              <img
+                v-if="userInfo.headerImg"
+                alt="头像"
+                class="header-img-box"
+                :src="
+                  userInfo.headerImg &&
+                  userInfo.headerImg.slice(0, 4) !== 'http'
+                    ? path + userInfo.headerImg
+                    : userInfo.headerImg
+                "
+              />
               <div v-else class="header-img-box">从媒体库选择</div>
             </div>
           </el-form-item>
-
         </el-form>
-
       </div>
-
       <template #footer>
         <div class="dialog-footer">
           <el-button @click="closeAddUserDialog">取 消</el-button>
-          <el-button type="primary" @click="enterAddUserDialog">确 定</el-button>
+          <el-button type="primary" @click="enterAddUserDialog"
+            >确 定</el-button
+          >
         </div>
       </template>
     </el-dialog>
@@ -141,268 +253,320 @@
 
 <script>
 export default {
-  name: 'User',
-}
+  name: "User",
+};
 </script>
 
 <script setup>
-
 import {
   getUserList,
   setUserAuthorities,
   register,
-  deleteUser
-} from '@/api/user'
+  deleteUser,
+} from "@/api/user";
 
-import { getAuthorityList } from '@/api/authority'
-import CustomPic from '@/components/customPic/index.vue'
-import ChooseImg from '@/components/chooseImg/index.vue'
-import WarningBar from '@/components/warningBar/warningBar.vue'
-import { setUserInfo, resetPassword } from '@/api/user.js'
+import { getAuthorityList } from "@/api/authority";
+import CustomPic from "@/components/customPic/index.vue";
+import ChooseImg from "@/components/chooseImg/index.vue";
+import WarningBar from "@/components/warningBar/warningBar.vue";
+import { setUserInfo, resetPassword, searchStaff, getStaffinfo } from "@/api/user.js";
 
-import { nextTick, ref, watch } from 'vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
-const path = ref(import.meta.env.VITE_BASE_API + '/')
+import { nextTick, ref, watch, computed } from "vue";
+import { ElMessage, ElMessageBox } from "element-plus";
+const path = ref(import.meta.env.VITE_BASE_API + "/");
 // 初始化相关
 const setAuthorityOptions = (AuthorityData, optionsData) => {
   AuthorityData &&
-        AuthorityData.forEach(item => {
-          if (item.children && item.children.length) {
-            const option = {
-              authorityId: item.authorityId,
-              authorityName: item.authorityName,
-              children: []
-            }
-            setAuthorityOptions(item.children, option.children)
-            optionsData.push(option)
-          } else {
-            const option = {
-              authorityId: item.authorityId,
-              authorityName: item.authorityName
-            }
-            optionsData.push(option)
-          }
-        })
-}
+    AuthorityData.forEach((item) => {
+      if (item.children && item.children.length) {
+        const option = {
+          authorityId: item.authorityId,
+          authorityName: item.authorityName,
+          children: [],
+        };
+        setAuthorityOptions(item.children, option.children);
+        optionsData.push(option);
+      } else {
+        const option = {
+          authorityId: item.authorityId,
+          authorityName: item.authorityName,
+        };
+        optionsData.push(option);
+      }
+    });
+};
 
-const page = ref(1)
-const total = ref(0)
-const pageSize = ref(10)
-const tableData = ref([])
+const page = ref(1);
+const total = ref(0);
+const pageSize = ref(10);
+const tableData = ref([]);
 // 分页
 const handleSizeChange = (val) => {
-  pageSize.value = val
-  getTableData()
-}
+  pageSize.value = val;
+  getTableData();
+};
 
 const handleCurrentChange = (val) => {
-  page.value = val
-  getTableData()
-}
+  page.value = val;
+  getTableData();
+};
 
 // 查询
-const getTableData = async() => {
-  const table = await getUserList({ page: page.value, pageSize: pageSize.value })
+const getTableData = async () => {
+  const table = await getUserList({
+    page: page.value,
+    pageSize: pageSize.value,
+  });
   if (table.code === 0) {
-    tableData.value = table.data.list
-    total.value = table.data.total
-    page.value = table.data.page
-    pageSize.value = table.data.pageSize
+    tableData.value = table.data.list;
+    total.value = table.data.total;
+    page.value = table.data.page;
+    pageSize.value = table.data.pageSize;
   }
-}
+};
 
-watch(() => tableData.value, () => {
-  setAuthorityIds()
-})
+watch(
+  () => tableData.value,
+  () => {
+    setAuthorityIds();
+  }
+);
 
-const initPage = async() => {
-  getTableData()
-  const res = await getAuthorityList({ page: 1, pageSize: 999 })
-  setOptions(res.data.list)
-}
+const initPage = async () => {
+  getTableData();
+  const res = await getAuthorityList({ page: 1, pageSize: 999 });
+  setOptions(res.data.list);
+};
 
-initPage()
+initPage();
 
 const resetPasswordFunc = (row) => {
-  ElMessageBox.confirm(
-    '是否将此用户密码重置为123456?',
-    '警告',
-    {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-      type: 'warning',
-    }
-  ).then(async() => {
+  ElMessageBox.confirm("是否将此用户密码重置为123456?", "警告", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  }).then(async () => {
     const res = await resetPassword({
       ID: row.ID,
-    })
+    });
     if (res.code === 0) {
       ElMessage({
-        type: 'success',
+        type: "success",
         message: res.msg,
-      })
+      });
     } else {
       ElMessage({
-        type: 'error',
+        type: "error",
         message: res.msg,
-      })
+      });
     }
-  })
-}
+  });
+};
 const setAuthorityIds = () => {
-  tableData.value && tableData.value.forEach((user) => {
-    user.authorityIds = user.authorities && user.authorities.map(i => {
-      return i.authorityId
-    })
-  })
-}
+  tableData.value &&
+    tableData.value.forEach((user) => {
+      user.authorityIds =
+        user.authorities &&
+        user.authorities.map((i) => {
+          return i.authorityId;
+        });
+    });
+};
 
-const chooseImg = ref(null)
+const chooseImg = ref(null);
 const openHeaderChange = () => {
-  chooseImg.value.open()
-}
+  chooseImg.value.open();
+};
 
-const authOptions = ref([])
+const authOptions = ref([]);
 const setOptions = (authData) => {
-  authOptions.value = []
-  setAuthorityOptions(authData, authOptions.value)
-}
+  authOptions.value = [];
+  setAuthorityOptions(authData, authOptions.value);
+};
 
-const deleteUserFunc = async(row) => {
-  const res = await deleteUser({ id: row.ID })
+const deleteUserFunc = async (row) => {
+  const res = await deleteUser({ id: row.ID });
   if (res.code === 0) {
-    ElMessage.success('删除成功')
-    row.visible = false
-    await getTableData()
+    ElMessage.success("删除成功");
+    row.visible = false;
+    await getTableData();
   }
-}
+};
 
 // 弹窗相关
 const userInfo = ref({
-  username: '',
-  password: '',
-  nickName: '',
-  headerImg: '',
-  authorityId: '',
+  username: "",
+  password: "",
+  nickName: "",
+  headerImg: "",
+  authorityId: "",
   authorityIds: [],
   enable: 1,
+  employeeId: "",
 })
-
+const staffList = ref([])
+const searchPerson = (data) => {
+  console.log(data);
+  if (data === '') {
+    return 
+  }
+  searchStaff({ searchData: data })
+    .then(res => {
+      staffList.value = res.data
+    })
+}
+let staffInfo = ref(null)
+watch(
+  () => userInfo.value.employeeId,
+  (val) => {
+    console.log(val);
+    if (val != '' && staffList.value.length > 0) {
+      console.log('1111111111111111111');
+      staffList.value.forEach(it => {
+        if (it.id === val) {
+          console.log(it);
+          staffInfo.value = it
+        }
+      })
+    } else {
+      staffInfo.value = {
+        name: '',
+        performanceclass: '',
+        job_title: '',
+      }
+    }
+  })
 const rules = ref({
   userName: [
-    { required: true, message: '请输入用户名', trigger: 'blur' },
-    { min: 5, message: '最低5位字符', trigger: 'blur' }
+    { required: true, message: "请输入用户名", trigger: "blur" },
+    { min: 5, message: "最低5位字符", trigger: "blur" },
   ],
   password: [
-    { required: true, message: '请输入用户密码', trigger: 'blur' },
-    { min: 6, message: '最低6位字符', trigger: 'blur' }
+    { required: true, message: "请输入用户密码", trigger: "blur" },
+    { min: 6, message: "最低6位字符", trigger: "blur" },
   ],
-  nickName: [
-    { required: true, message: '请输入用户昵称', trigger: 'blur' }
+  employeeId: [
+  { required: true, message: "请绑定身份", trigger: "blur" },
   ],
-  phone: [
-    { pattern: /^1([38][0-9]|4[014-9]|[59][0-35-9]|6[2567]|7[0-8])\d{8}$/, message: '请输入合法手机号', trigger: 'blur' },
-  ],
-  email: [
-    { pattern: /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g, message: '请输入正确的邮箱', trigger: 'blur' },
-  ],
-  authorityId: [
-    { required: true, message: '请选择用户角色', trigger: 'blur' }
-  ]
-})
-const userForm = ref(null)
-const enterAddUserDialog = async() => {
-  userInfo.value.authorityId = userInfo.value.authorityIds[0]
-  userForm.value.validate(async valid => {
+  nickName: [{ required: true, message: "请输入用户昵称", trigger: "blur" }],
+  // phone: [
+  //   {
+  //     pattern: /^1([38][0-9]|4[014-9]|[59][0-35-9]|6[2567]|7[0-8])\d{8}$/,
+  //     message: "请输入合法手机号",
+  //     trigger: "blur",
+  //   },
+  // ],
+  // email: [
+  //   {
+  //     pattern: /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g,
+  //     message: "请输入正确的邮箱",
+  //     trigger: "blur",
+  //   },
+  // ],
+  authorityId: [{ required: true, message: "请选择用户角色", trigger: "blur" }],
+});
+const userForm = ref(null);
+const enterAddUserDialog = async () => {
+  userInfo.value.authorityId = userInfo.value.authorityIds[0];
+  userForm.value.validate(async (valid) => {
     if (valid) {
       const req = {
-        ...userInfo.value
-      }
-      if (dialogFlag.value === 'add') {
-        const res = await register(req)
+        ...userInfo.value,
+      };
+      if (dialogFlag.value === "add") {
+        const res = await register(req);
         if (res.code === 0) {
-          ElMessage({ type: 'success', message: '创建成功' })
-          await getTableData()
-          closeAddUserDialog()
+          ElMessage({ type: "success", message: "创建成功" });
+          await getTableData();
+          closeAddUserDialog();
         }
       }
-      if (dialogFlag.value === 'edit') {
-        const res = await setUserInfo(req)
+      if (dialogFlag.value === "edit") {
+        const res = await setUserInfo(req);
         if (res.code === 0) {
-          ElMessage({ type: 'success', message: '编辑成功' })
-          await getTableData()
-          closeAddUserDialog()
+          ElMessage({ type: "success", message: "编辑成功" });
+          await getTableData();
+          closeAddUserDialog();
         }
       }
     }
-  })
-}
+  });
+};
 
-const addUserDialog = ref(false)
+const addUserDialog = ref(false);
 const closeAddUserDialog = () => {
-  userForm.value.resetFields()
-  userInfo.value.headerImg = ''
-  userInfo.value.authorityIds = []
-  addUserDialog.value = false
-}
+  userForm.value.resetFields();
+  userInfo.value.headerImg = "";
+  userInfo.value.authorityIds = [];
+  addUserDialog.value = false;
+};
 
-const dialogFlag = ref('add')
+const dialogFlag = ref("add");
 
 const addUser = () => {
-  dialogFlag.value = 'add'
-  addUserDialog.value = true
-}
+  dialogFlag.value = "add";
+  addUserDialog.value = true;
+};
 
-const tempAuth = {}
-const changeAuthority = async(row, flag, removeAuth) => {
+const tempAuth = {};
+const changeAuthority = async (row, flag, removeAuth) => {
   if (flag) {
     if (!removeAuth) {
-      tempAuth[row.ID] = [...row.authorityIds]
+      tempAuth[row.ID] = [...row.authorityIds];
     }
-    return
+    return;
   }
-  await nextTick()
+  await nextTick();
   const res = await setUserAuthorities({
     ID: row.ID,
-    authorityIds: row.authorityIds
-  })
+    authorityIds: row.authorityIds,
+  });
   if (res.code === 0) {
-    ElMessage({ type: 'success', message: '角色设置成功' })
+    ElMessage({ type: "success", message: "角色设置成功" });
   } else {
     if (!removeAuth) {
-      row.authorityIds = [...tempAuth[row.ID]]
-      delete tempAuth[row.ID]
+      row.authorityIds = [...tempAuth[row.ID]];
+      delete tempAuth[row.ID];
     } else {
-      row.authorityIds = [removeAuth, ...row.authorityIds]
+      row.authorityIds = [removeAuth, ...row.authorityIds];
     }
   }
-}
+};
 
 const openEdit = (row) => {
-  dialogFlag.value = 'edit'
-  userInfo.value = JSON.parse(JSON.stringify(row))
-  addUserDialog.value = true
-}
+  dialogFlag.value = "edit";
+  userInfo.value = JSON.parse(JSON.stringify(row));
+  console.log(JSON.parse(JSON.stringify(row)));
+  if (userInfo.value.employee_id !== '') {
+    getStaffinfo({ id: userInfo.value.employee_id }).then(res => {
+      console.log(res);
+      staffInfo.value = res.data
+    })
+  }
+  addUserDialog.value = true;
+};
 
-const switchEnable = async(row) => {
-  userInfo.value = JSON.parse(JSON.stringify(row))
-  await nextTick()
+const switchEnable = async (row) => {
+  userInfo.value = JSON.parse(JSON.stringify(row));
+  await nextTick();
   const req = {
-    ...userInfo.value
-  }
-  const res = await setUserInfo(req)
+    ...userInfo.value,
+  };
+  const res = await setUserInfo(req);
   if (res.code === 0) {
-    ElMessage({ type: 'success', message: `${req.enable === 2 ? '禁用' : '启用'}成功` })
-    await getTableData()
-    userInfo.value.headerImg = ''
-    userInfo.value.authorityIds = []
+    ElMessage({
+      type: "success",
+      message: `${req.enable === 2 ? "禁用" : "启用"}成功`,
+    });
+    await getTableData();
+    userInfo.value.headerImg = "";
+    userInfo.value.authorityIds = [];
   }
-}
-
+};
 </script>
 
 <style lang="scss">
-  .header-img-box {
-    @apply w-52 h-52 border border-solid border-gray-300 rounded-xl flex justify-center items-center cursor-pointer;
- }
+.header-img-box {
+  @apply w-52 h-52 border border-solid border-gray-300 rounded-xl flex justify-center items-center cursor-pointer;
+}
 </style>
