@@ -2,7 +2,7 @@ import service from "@/utils/request";
 
 export const createPayloadTemp = (data) => {
   return service({
-    url: "/payload/craeteTemp",
+    url: "/payload/createTemp",
     method: "POST",
     data,
   });
@@ -10,7 +10,7 @@ export const createPayloadTemp = (data) => {
 export const updatePayloadTemp = (data) => {
   return service({
     url: "/payload/updateTemp",
-    method: "POST",
+    method: "put",
     data,
   });
 };

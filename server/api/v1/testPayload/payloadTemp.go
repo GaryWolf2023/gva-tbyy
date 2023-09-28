@@ -13,18 +13,16 @@ func (p *PayloadTemplate) CreatePayloadTemp(c *gin.Context) {
 	var createTemp request.CreateTemp
 	//file就是我们上传的文件
 	err := c.ShouldBind(&createTemp)
-
 	if err != nil {
 		response.FailWithMessage("参数错误", c)
 		return
 	}
-
-	err1 := PayloadTempService.CreatePayloadTemp(createTemp)
+	obj, err1 := PayloadTempService.CreatePayloadTemp(createTemp)
 	if err1 != nil {
 		response.FailWithMessage("上传模板失败", c)
 		return
 	}
-	response.OkWithMessage("上传模板成功", c)
+	response.OkWithDetailed(obj, "上传模板成功", c)
 }
 func (p *PayloadTemplate) UpdatePayloadTemp(c *gin.Context) {
 	var updateTemp request.UpdateTemp
