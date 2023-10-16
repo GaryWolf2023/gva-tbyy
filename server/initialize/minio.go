@@ -1,9 +1,10 @@
 package initialize
 
 import (
+	"fmt"
+	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
-	"log"
 )
 
 func InitMinioClient() *minio.Client {
@@ -17,7 +18,10 @@ func InitMinioClient() *minio.Client {
 		Creds: credentials.NewStaticV4(accessKeyID, secretAccessKey, ""),
 	})
 	if err != nil {
-		log.Fatalf("初始化MinioClient错误：%s", err.Error())
+		fmt.Printf("初始化MinioClient错误：%s", err.Error())
+		global.GVA_LOG.Error("初始化MinioClient错误")
+		return nil
 	}
+	fmt.Println("minio启动成功")
 	return minioClient
 }

@@ -42,7 +42,7 @@
                   </el-dropdown-menu>
                 </template>
             </el-dropdown>
-            <p class="h-10">*上方工具皆为测试使用，并无实际意义</p>
+            <!-- <p class="h-10">*上方工具皆为测试使用，并无实际意义</p> -->
         </div>
         <!-- <div class="h-80 w-full">
             <div v-for="it in payloadList">
@@ -52,7 +52,7 @@
             </div>
         </div> -->
         <div class="show-editor">
-            <x-emr v-if="editorType==='xemr'" :docname="docName" ></x-emr>
+            <x-emr v-if="editorType==='xemr'" :docname="docName" @getEditor="getEditor" ></x-emr>
             <create-form v-if="editorType==='form'"></create-form>
             <md-editor v-if="editorType==='md'"></md-editor>
         </div>
@@ -63,15 +63,38 @@
 import XEmr from '@/components/xemr/index.vue'
 import CreateForm from '@/components/createForm/index.vue'
 import MdEditor from '@/components/createForm/index.vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { createPayload, getPayloadList, updatePayload, getPayloadById, deletePayload } from '@/api/ctrlPayload'
+import { getFileOfTemp } from '@/api/payloadTemp'
+import { ElMessage } from 'element-plus'
 
 const route = useRoute()
 const editorType = route.query.editorType
-console.log(editorType);
 const docName = route.query.docName
+
 const payloadList = ref([])
+const editor = ref(null)
+const fileData = ref(null)
+const getEditor = (e) => {
+    console.log(e);
+    editor.value = e.editor
+    if (fileData.value) {
+        editor.value.loadHtml(fileData.value)
+    } else {
+        ElMessage.warning('未查到相应模板信息，请检查模板是否存在')
+        editor.value.loadHtml()
+    }
+}
+onMounted(() => {
+    getFileOfTemp({
+        tempName: route.query.docName,
+        tempType: route.query.editorType
+    }).then(res => {
+        console.log(res)
+        fileData.value = res.data
+    })
+})
 
 const getPayloadListFunc = () => {
     getPayloadList({
@@ -90,6 +113,7 @@ const getOnePayloadFunc = () => {
         // payloadList.value = res.data
     })
 }
+// 更新病历
 const updatePayloadFunc = () => {
     updatePayload({
         payload_content: 'u====================================================b',
@@ -99,7 +123,13 @@ const updatePayloadFunc = () => {
         console.log(res)
     })
 }
+// 创建病历
 const createPayloadFunc = () => {
+    let data = editor.value.getHtml()
+    let data2 = editor.value.getBindObject()
+    console.log('html', data)
+    console.log('json', data2)
+    return
     createPayload({
         job_id: 'asdasdhabuhsbduhbasda',
         unique: '222222222222',
@@ -123,9 +153,8 @@ const deletePayloadFunc = () => {
 .emr-editor {
     height: calc(100vh - 116px);
     .editor-top {
-        height: 42px;
-        padding: 0 20px;
-        padding-top: 10px;
+        height: 32px;
+        /* padding-top: 10px; */
         .el-button {
             margin: 0px 10px;
         }

@@ -16,11 +16,12 @@ const editor = ref(null)
 //文档加载完成
 const onDocLoaded = function(e) {
     editor.value = e.editor
-    emits('getEditor', e.editor)
+    // emits('getEditor', e.editor)
 }
 const onAfterInit = (e) => {
-    console.log(e)
-    e.editor.loadUrl('/src/assets/docMode/' + props.docname + '.html')
+    // console.log(e)
+    emits('getEditor', e)
+    // e.editor.loadUrl('/src/assets/docMode/' + props.docname + '.html')
 }
 </script>
 
