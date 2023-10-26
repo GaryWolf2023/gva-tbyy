@@ -17,7 +17,7 @@
 
 <script setup>
 
-import { ref, watch } from 'vue'
+import { ref, watch, defineProps} from 'vue'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/pinia/modules/user'
 

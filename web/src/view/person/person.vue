@@ -36,21 +36,21 @@
                 <el-tooltip
                   class="item"
                   effect="light"
-                  content="北京反转极光科技有限公司-技术部-前端事业群"
+                  content="成都钛铂云医"
                   placement="top"
                 >
                   <li>
                     <el-icon>
                       <data-analysis />
                     </el-icon>
-                    北京反转极光科技有限公司-技术部-前端事业群
+                    成都钛铂云医
                   </li>
                 </el-tooltip>
                 <li>
                   <el-icon>
                     <video-camera />
                   </el-icon>
-                  中国·北京市·朝阳区
+                  中国·成都市·高新区
                 </li>
                 <el-tooltip
                   class="item"
@@ -62,7 +62,7 @@
                     <el-icon>
                       <medal />
                     </el-icon>
-                    GoLang/JavaScript/Vue/Gorm
+                   。。。。。。。。。。。
                   </li>
                 </el-tooltip>
               </ul>
@@ -98,6 +98,7 @@
         </div>
         <div class="staff-addcount">
           <p class="staff-top">员工信息</p>
+          <StaffInfoShow :staffInfo="staffInfo"></StaffInfoShow>
         </div>
       </el-col>
     </el-row>
@@ -203,10 +204,12 @@ export default {
 
 <script setup>
 import { setSelfInfo, changePassword } from '@/api/user.js'
-import { reactive, ref, watch } from 'vue'
+import { getStaffInfo } from '@/api/staff.js'
+import { reactive, ref, watch, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/pinia/modules/user'
 import SelectImage from '@/components/selectImage/selectImage.vue'
+import StaffInfoShow from './staffInfoShow.vue'
 
 const activeName = ref('second')
 const rules = reactive({
@@ -240,6 +243,7 @@ const showPassword = ref(false)
 const pwdModify = ref({})
 const nickName = ref('')
 const editFlag = ref(false)
+const staffInfo = ref({})
 const savePassword = async() => {
   modifyPwdForm.value.validate((valid) => {
     if (valid) {
@@ -257,6 +261,13 @@ const savePassword = async() => {
     }
   })
 }
+
+onMounted(() => {
+  getStaffInfo(userStore.userInfo.employee_id).then(res => {
+    console.log(res)
+    staffInfo.value = res.data
+  })
+})
 
 const clearPassword = () => {
   pwdModify.value = {

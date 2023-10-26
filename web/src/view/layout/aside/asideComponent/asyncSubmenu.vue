@@ -26,7 +26,7 @@ export default {
 </script>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, defineProps } from 'vue'
 const props = defineProps({
   routerInfo: {
     default: function() {

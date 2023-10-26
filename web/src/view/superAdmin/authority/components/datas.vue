@@ -24,7 +24,7 @@ export default {
 <script setup>
 import { setDataAuthority } from '@/api/authority'
 import WarningBar from '@/components/warningBar/warningBar.vue'
-import { ref } from 'vue'
+import { ref, defineProps } from 'vue'
 import { ElMessage } from 'element-plus'
 const props = defineProps({
   row: {

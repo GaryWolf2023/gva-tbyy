@@ -21,6 +21,8 @@ func Routers() *gin.Engine {
 	exampleRouter := router.RouterGroupApp.Example
 	payloadRouter := router.RouterGroupApp.TestPayload
 	participantRouter := router.RouterGroupApp.Participant
+	hospitalManage := router.RouterGroupApp.HospitalManage
+	commonApi := router.RouterGroupApp.CommonApi
 	// 如果想要不使用nginx代理前端网页，可以修改 web/.env.production 下的
 	// VUE_APP_BASE_API = /
 	// VUE_APP_BASE_PATH = http://localhost
@@ -78,7 +80,11 @@ func Routers() *gin.Engine {
 		payloadRouter.InitPayloadTempRouter(PrivateGroup, PublicGroup) // payload模板管理，后续得电子病历模板管理
 
 		participantRouter.InitTempManageRouter(PrivateGroup, PublicGroup)  // 参与人模板管理
-		participantRouter.InitParticipantRouter(PrivateGroup, PublicGroup) // 参与人管理， 前端使用参与人的时候需要对参与人进行修改的时候
+		participantRouter.InitParticipantRouter(PrivateGroup, PublicGroup) // 参与人管理，
+
+		hospitalManage.InitStaffManageRouter(PrivateGroup, PublicGroup) // 员工信息管理
+
+		commonApi.InitTableDataRouter(PublicGroup) // 一些公共API用于比如再form中需要请求的数据
 	}
 
 	global.GVA_LOG.Info("router register success")

@@ -7,6 +7,12 @@ type PageInfo struct {
 	Keyword  string `json:"keyword" form:"keyword"`   //关键字
 }
 
+type PageInfoOfGet struct {
+	Page     int    `form:"page" form:"page"`         // 页码
+	PageSize int    `form:"pageSize" form:"pageSize"` // 每页大小
+	Keyword  string `form:"keyword" form:"keyword"`   //关键字
+}
+
 // GetById Find by id structure
 type GetById struct {
 	ID int `json:"id" form:"id"` // 主键ID

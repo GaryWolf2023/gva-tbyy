@@ -38,7 +38,6 @@ func (b *BaseApi) Login(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-
 	// 判断验证码是否开启
 	openCaptcha := global.GVA_CONFIG.Captcha.OpenCaptcha               // 是否开启防爆次数
 	openCaptchaTimeOut := global.GVA_CONFIG.Captcha.OpenCaptchaTimeOut // 缓存超时时间
@@ -175,12 +174,6 @@ func (b *BaseApi) Register(c *gin.Context) {
 // @Success  200   {object}  response.Response{data=systemRes.SysUserResponse,msg=string}  "用户注册账号,返回包括用户信息"
 // @Router   /user/admin_register [GET]
 func (b *BaseApi) GetPersonInfo(c *gin.Context) {
-	//var searchStaff systemReq.SearchStaff
-	//err := c.ShouldBindJSON(&searchStaff)
-	//if err != nil {
-	//	response.FailWithMessage("参数错误", c)
-	//	return
-	//}
 	searchData := c.Query("searchData")
 	data, err1 := userService.GetStaffInfo(searchData)
 	if err1 != nil {

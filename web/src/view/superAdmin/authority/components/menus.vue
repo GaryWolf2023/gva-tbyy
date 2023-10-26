@@ -73,7 +73,7 @@ import {
   updateAuthority
 } from '@/api/authority'
 import { getAuthorityBtnApi, setAuthorityBtnApi } from '@/api/authorityBtn'
-import { nextTick, ref, watch } from 'vue'
+import { nextTick, ref, watch, defineProps } from 'vue'
 import { ElMessage } from 'element-plus'
 
 const props = defineProps({

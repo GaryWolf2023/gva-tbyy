@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, defineProps } from 'vue'
 
 const props = defineProps({
   meta: {

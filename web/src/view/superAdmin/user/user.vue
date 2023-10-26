@@ -186,7 +186,7 @@
               :clearable="false"
             />
           </el-form-item>
-          <el-form-item label="身份绑定" prop="employeeId">
+          <el-form-item label="身份绑定" prop="employeeId" v-if="userInfo.employeeId === ''">
             <el-select
               v-model="userInfo.employeeId"
               style="width: 100%"
@@ -209,7 +209,7 @@
             <div class="w-full border border-yellow-200">
               <p>姓名：{{ staffInfo.name }}</p>
               <p>职位：{{ staffInfo.job_title }}</p>
-              <p>职级：{{ staffInfo.performanceclass }}</p>
+              <p>职级：{{ staffInfo.performanceclass? staffInfo.performanceclass: '待定' }}</p>
             </div>
           </el-form-item>
           <el-form-item label="启用" prop="disabled">
@@ -319,6 +319,7 @@ const getTableData = async () => {
   });
   if (table.code === 0) {
     tableData.value = table.data.list;
+    console.log(table.data.list);
     total.value = table.data.total;
     page.value = table.data.page;
     pageSize.value = table.data.pageSize;

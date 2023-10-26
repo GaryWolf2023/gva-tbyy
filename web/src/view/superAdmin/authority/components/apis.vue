@@ -29,7 +29,7 @@ export default {
 <script setup>
 import { getAllApis } from '@/api/api'
 import { UpdateCasbin, getPolicyPathByAuthorityId } from '@/api/casbin'
-import { ref, watch } from 'vue'
+import { ref, watch, defineProps } from 'vue'
 import { ElMessage } from 'element-plus'
 const props = defineProps({
   row: {

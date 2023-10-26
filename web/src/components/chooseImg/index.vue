@@ -60,7 +60,7 @@
 
 <script setup>
 import { getUrl } from '@/utils/image'
-import { ref } from 'vue'
+import { ref, defineProps } from 'vue'
 import { getFileList, editFileName } from '@/api/fileUploadAndDownload'
 import UploadImage from '@/components/upload/image.vue'
 import UploadCommon from '@/components/upload/common.vue'

@@ -16,7 +16,7 @@
 
 <script setup>
 import ImageCompress from '@/utils/image'
-import { ref } from 'vue'
+import { ref, defineProps } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/pinia/modules/user'
 
