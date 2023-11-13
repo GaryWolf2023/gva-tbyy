@@ -32,20 +32,34 @@ func (s *StaffManageService) GetStaffList(req request.PageInfoOfGet) response2.P
 	return resData
 }
 
-func (s *StaffManageService) GetStaffInfo(id string) response.BasicStaffInfo {
+func (s *StaffManageService) GetStaffInfo(id string) (response.BasicStaffInfo, error) {
 	var staffInfo response.BasicStaffInfo
-	global.GVA_DB.Table("hr_employee").Where("id = ?", id).First(&staffInfo)
-	return staffInfo
+	data := global.GVA_DB.Table("hr_employee").Where("id = ?", id).First(&staffInfo)
+	if data.Error != nil {
+		return staffInfo, errors.New(fmt.Sprintf("更新失败%v", data.Error))
+	}
+	return staffInfo, nil
 }
 
-//func (s *StaffManageService) UpdateStaff(req request2.BasicStaffInfo) error {
-//	fmt.Println(req)
-//	result := global.GVA_DB.Table("hr_employee").Where("id = ?", req.ID).Updates(req)
-//	if result.Error != nil {
-//		return errors.New(fmt.Sprintf("更新失败%v", result.Error))
-//	}
-//	return nil
-//}
+// 更新系统配置信息
+func (s *StaffManageService) UpdateStaffInfo(req request2.StaffInfo) error {
+	fmt.Println(req)
+	result := global.GVA_DB.Table("hr_employee").Where("id = ?", req.ID).Updates(req)
+	if result.Error != nil {
+		return errors.New(fmt.Sprintf("更新失败%v", result.Error))
+	}
+	return nil
+}
+
+// 更新系统配置信息
+func (s *StaffManageService) UpdateSysConfig(req request2.SystemConfig) error {
+	fmt.Println(req)
+	result := global.GVA_DB.Table("hr_employee").Where("id = ?", req.ID).Updates(req)
+	if result.Error != nil {
+		return errors.New(fmt.Sprintf("更新失败%v", result.Error))
+	}
+	return nil
+}
 
 // 更新基础数据
 func (s *StaffManageService) UpdateBasicStaffInfo(req request2.BasicInfo) error {

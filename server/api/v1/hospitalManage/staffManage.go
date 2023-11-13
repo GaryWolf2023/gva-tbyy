@@ -28,8 +28,29 @@ func (s *StaffManage) GetStaffInfo(c *gin.Context) {
 		response.FailWithMessage("参数错误", c)
 		return
 	}
-	data := StaffService.GetStaffInfo(employeeId)
+	data, err1 := StaffService.GetStaffInfo(employeeId)
+	if err1 != nil {
+		response.FailWithMessage("获取失败", c)
+		return
+	}
 	response.OkWithDetailed(data, "获取成功", c)
+}
+
+// UpdateStaffInfo 员工信息通用修改
+func (s *StaffManage) UpdateStaffInfo(c *gin.Context) {
+	var staffInfo request2.StaffInfo
+	err := c.ShouldBindJSON(&staffInfo)
+	if err != nil {
+		response.FailWithMessage("参数错误", c)
+		return
+	}
+	err1 := StaffService.UpdateStaffInfo(staffInfo)
+	if err1 != nil {
+		response.FailWithMessage("更新失败", c)
+		return
+	}
+	response.OkWithMessage("更新成功", c)
+
 }
 
 // UpdateBasicStaffInfo 更新员工基础信息
@@ -44,7 +65,7 @@ func (s *StaffManage) UpdateBasicStaffInfo(c *gin.Context) {
 		key := t.Field(i).Name
 		value := field.Interface()
 
-		fmt.Printf("Key: %s, ----------------Value: %v\n", key, value)
+		fmt.Printf("Key: %s, \tValue: %v \n", key, value)
 	}
 	if err != nil {
 		response.FailWithMessage("参数错误", c)
@@ -54,8 +75,23 @@ func (s *StaffManage) UpdateBasicStaffInfo(c *gin.Context) {
 	err1 := StaffService.UpdateBasicStaffInfo(staffInfo)
 	if err1 != nil {
 		response.FailWithMessage("更新失败", c)
+		return
 	}
 	response.OkWithMessage("更新成功", c)
+}
+func (s *StaffManage) UpdateSystemConfig(c *gin.Context) {
+	var info request2.SystemConfig
+	err := c.ShouldBindJSON(&info)
+	if err != nil {
+		response.FailWithMessage("参数错误", c)
+		return
+	}
+	err1 := StaffService.UpdateSysConfig(info)
+	if err1 != nil {
+		response.FailWithMessage("修改失败错误", c)
+		return
+	}
+	response.OkWithMessage("修改成功", c)
 }
 func (s *StaffManage) DeleteStaff(c *gin.Context) {
 	employeeId := c.Params.ByName("id")

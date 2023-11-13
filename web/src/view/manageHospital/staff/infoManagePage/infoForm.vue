@@ -108,21 +108,21 @@
           <el-input v-model="formData.addressHomeId" type="text" clearable></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="6" class="grid-cell">
+      <!-- <el-col :span="6" class="grid-cell">
         <el-form-item label="私人邮箱" prop="privateEmail" class="required">
           <el-input v-model="formData.privateEmail" type="text" clearable></el-input>
         </el-form-item>
-      </el-col>
-      <el-col :span="6" class="grid-cell">
+      </el-col> -->
+      <!-- <el-col :span="6" class="grid-cell">
         <el-form-item label="私人电话" prop="phone" class="required">
           <el-input v-model="formData.phone" type="text" clearable></el-input>
         </el-form-item>
-      </el-col>
-      <el-col :span="6" class="grid-cell">
-        <el-form-item label="银行卡号" prop="bankAccountId" class="required">
+      </el-col> -->
+      <!-- <el-col :span="6" class="grid-cell">
+        <el-form-item label="银行卡账户" prop="bankAccountId" class="required">
           <el-input v-model="formData.bankAccountId" type="text" clearable></el-input>
         </el-form-item>
-      </el-col>
+      </el-col> -->
       <el-col :span="6" class="grid-cell">
         <el-form-item label="家到公司距离" prop="kmHomeWork">
           <el-input v-model="formData.kmHomeWork" type="text" clearable></el-input>
@@ -180,7 +180,7 @@
       </el-col>
       <el-col :span="6" class="grid-cell">
         <el-form-item label="受抚养子女数" prop="chlidren">
-          <el-input v-model="formData.children" type="text" clearable></el-input>
+          <el-input v-model="formData.children" type="number" clearable></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="24" class="grid-cell">
@@ -277,6 +277,7 @@
 import { reactive, ref, onMounted, watch } from 'vue'
 import { getNumberCode, getArea, getCity, getCountry, getProvince } from '@/api/common.js'
 import { updateStaff } from '@/api/staff'
+import { ElMessage } from 'element-plus';
 
 const vForm = ref(null)
 const props = defineProps(["staffInfo"])
@@ -297,9 +298,9 @@ const formData = reactive({
   nativePlaceC: null,
   politicsStatus: "",
   addressHomeId: "",
-  privateEmail: "",
-  phone: "",
-  bankAccountId: "",
+  // privateEmail: "",
+  // phone: "",
+  // bankAccountId: "",
   kmHomeWork: null,
   identificationId: "",
   idExpiryDate: null,
@@ -307,10 +308,10 @@ const formData = reactive({
   marital: null,
   spouseCompleteName: "",
   spouseBirthdate: null,
-  children: 0,
+  children: null,
   emergencyContact: "",
   emergencyPhone: "",
-  certificate: "",
+  certificate: null,
   schoolGrade: null,
   graduationDate: null,
   studyField: "",
@@ -462,9 +463,12 @@ const defaultTime = ref<[Date, Date]>([
 ])
 
 const updateData = (id) => {
-  console.log({ id: Number(id), ...formData })
   updateStaff({ id: Number(id), ...formData }).then(res => {
-    console.log(res)
+    if (res.code === 0) {
+      ElMessage.success(res.msg)
+    } else {
+      ElMessage.warning(res.msg)
+    }
   })
 }
 onMounted(async () => {
@@ -481,23 +485,24 @@ onMounted(async () => {
       }
     })
   })
+  // 获取省市去
   const res1 = await getNumberCode("GB/T 2261.1-2003")
   genderOptions.value = res1.data
   const res2 = await getNumberCode("GB/T 4658-2006")
   schoolgradeOptions.value = res2.data
   const res3 = await getNumberCode("GB/T 2261.2-2003")
-  maritalOptions.value = res3.data
+  res3.data.forEach((it, index) => {
+    maritalOptions.value[index] = {
+        label: it.label,
+        value: String(it.value)
+      }
+  })
   const res4 = await getNumberCode("GB/T 3304-1991")
   nationOptions.value = res4.data
   const res5 = await getNumberCode("GB/T 6864-2003")
   certificateOptions.value = res5.data
-  console.log("res1", res1.data)
-  console.log("res2", res2.data)
-  console.log("res3", res3.data)
-  console.log("res4", res4.data)
 })
 watch(() => props.staffInfo, (val) => {
-  console.log(val);
   if (val) {
     for (const key in formData) {
       formData[key] = val[key]
@@ -506,25 +511,26 @@ watch(() => props.staffInfo, (val) => {
 },{immediate: true})
 watch(
   () => formData.countryOfBirth,
-  (val) => {
-    console.log(val);
+  (val, oldval) => {
     if (!!val) {
-      formData.nativePlaceP = 0
-      formData.nativePlaceC = 0
       getProvince(val).then(res => {
-        console.log(res.data)
         nativePlacePOptions.value = res.data
       })
+    }
+    if (!!oldval) {
+      formData.nativePlaceP = null
     }
   }, {immediate: true})
 watch(
   () => formData.nativePlaceP,
-  (val) => {
-    formData.nativePlaceC = ''
+  (val,oldval) => {
+    formData.nativePlaceC = null
     getCity(val).then(res => {
-      console.log(res.data)
       nativePlaceCOptions.value = res.data
     })
+    if (!!oldval) {
+      formData.nativePlaceC = null
+    }
 }, {immediate: true})
 defineExpose({
   updateData

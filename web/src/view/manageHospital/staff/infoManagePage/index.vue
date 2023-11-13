@@ -111,9 +111,11 @@
                                     />
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="18" :offset="1">
-                                <el-form-item label="擅长治疗疾病:">
-                                    <span v-if="!editorSystem">{{ staffInfo.diseaseIds }}</span>
+                            <el-col :span="16">
+                                <el-form-item label="擅长疾病配置:">
+                                    <div :style="{width:'100%'}">
+                                        <AdeptIllness :id="route.query.id"></AdeptIllness>
+                                    </div>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -121,27 +123,9 @@
                 </div>
             </div>
             <div class="info-item">
-                <p class="info-item-title">保险配置:</p>
+                <p class="info-item-title">员工保险配置:</p>
                 <div class="info-item-form">
-                    <el-table :data="insuranceData" style="width: 100%" max-height="320">
-                      <el-table-column fixed prop="date" label="保险类型名称" />
-                      <el-table-column prop="name" label="缴费基数" />
-                      <el-table-column prop="state" label="单位缴纳比例" />
-                      <el-table-column prop="city" label="个人缴纳比例" />
-                      <el-table-column fixed="right" label="" width="120">
-                        <template #default="scope">
-                          <el-button
-                            link
-                            type="primary"
-                            size="small"
-                            @click.prevent="deleteRowOfInsurance(scope.$index)"
-                          >
-                          <el-icon><CloseBold /></el-icon>
-                          </el-button>
-                        </template>
-                      </el-table-column>
-                    </el-table>
-                    <el-button class="mt-4" style="width: 100%" @click="onAddInsuranceFunc">新增保险</el-button>
+                    <InsuranceAllocation></InsuranceAllocation>
                 </div>
             </div>
             <div class="info-item">
@@ -152,97 +136,7 @@
                     <el-button type="success" size="small">保存</el-button>
                 </div>
                 <div class="info-item-form">
-                    <el-form
-                        ref="basicInfo"
-                        :rules="rules"
-                        label-width="120px"
-                    >
-                        <el-row>
-                            <el-divider content-position="left">职称</el-divider>
-                            <el-col :span="6">
-                                <el-form-item label="职称：">
-                                    <span>{{  }}</span>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="6">
-                                <el-form-item label="职称证书编号：">
-                                    <span>{{  }}</span>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="6">
-                                <el-form-item label="支撑获得日期：">
-                                    <span>{{  }}</span>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="6">
-                                <el-form-item label="教学职称：">
-                                    <span>{{  }}</span>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="6">
-                                <el-form-item label="教学单位：">
-                                    <span>{{  }}</span>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="6">
-                                <el-form-item label="导师资质：">
-                                    <span>{{  }}</span>
-                                </el-form-item>
-                            </el-col>
-                            <el-divider content-position="left">资质</el-divider>
-                            <el-col :span="6">
-                                <el-form-item label="执业类别:">
-                                    <span>{{  }}</span>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="6">
-                                <el-form-item label="执业医师资质:">
-                                    <span>{{  }}</span>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="6">
-                                <el-form-item label="执业助理医师资质:">
-                                    <span>{{  }}</span>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="6">
-                                <el-form-item label="执业药师资质:">
-                                    <span>{{  }}</span>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="6">
-                                <el-form-item label="执业护士资质:">
-                                    <span>{{  }}</span>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="6">
-                                <el-form-item label="操作资质:">
-                                    <span>{{  }}</span>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="6">
-                                <el-form-item label="手术资质:">
-                                    <span>{{  }}</span>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="6">
-                                <el-form-item label="手术级别:">
-                                    <span>{{  }}</span>
-                                </el-form-item>
-                            </el-col>
-                            <el-divider content-position="left">处方资质</el-divider>
-                            <el-col :span="18" :offset="1">
-                                <el-form-item label="医生简介:">
-                                    <span>{{  }}</span>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :span="18" :offset="1">
-                                <el-form-item label="擅长治疗疾病:">
-                                    <span>{{  }}</span>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                    </el-form>
+                   <TitleManage :staffInfo="staffInfo"></TitleManage>
                 </div>
             </div>
             <div class="info-item">
@@ -388,10 +282,13 @@
 
 <script setup>
 import InfoForm from './infoForm.vue'
+import InsuranceAllocation from '../othorAllocation/insuranceAllocation.vue'
+import AdeptIllness from '../othorAllocation/adeptIllness.vue'
+import TitleManage from './titleManage.vue'
 import { useRoute } from 'vue-router'
 import { ref, computed, watch, onMounted } from 'vue'
 import { Document, Refresh } from '@element-plus/icons-vue'
-import { getStaffList, getStaffInfo, deleteStaff, updateStaff } from '@/api/staff.js'
+import { getStaffList, getStaffInfo, deleteStaff, updateStaff, updateStaffSystemConfig } from '@/api/staff.js'
 
 const route = useRoute()
 const staffInfo = ref({})
@@ -411,7 +308,8 @@ watch(() => route.query.id, (a) => {
     if (a) {
         getStaffInfo(a).then(res => {
         console.log(res);
-        if (res.code === 0) { 
+            if (res.code === 0) { 
+            console.log("员工详细信息：", res.data)
             staffInfo.value = res.data
         } else {
             ElMessage.warning("获取个人信息失败")
@@ -464,8 +362,16 @@ const updateBasicInfo = () => {
     infoForm.value.updateData(route.query.id)
 }
 const updateSystemConfiguration = () => {
-    updateStaff(staffInfo.value).then(res => {
-
+    var obj = {
+        id: Number(route.query.id),
+        bookingNumAm: Number(staffInfo.value.bookingNumAm),
+        bookingNumPm:  Number(staffInfo.value.bookingNumPm),
+        bookingNumNg:  Number(staffInfo.value.bookingNumNg),
+        introduction:  staffInfo.value.introduction
+    }
+    console.log(obj);
+    updateStaffSystemConfig(obj).then(res => {
+        console.log(res)
     })
 }
 </script>

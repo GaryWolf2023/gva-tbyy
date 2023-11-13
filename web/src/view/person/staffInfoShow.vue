@@ -42,7 +42,7 @@ import { ref, defineProps, computed, watch } from 'vue'
 
 const props = defineProps(['staffInfo'])
 const userInfo = computed(() => {
-    console.log(props.staffInfo)
+    // console.log(props.staffInfo)
     return props.staffInfo
 })
 watch(userInfo, (a) => {

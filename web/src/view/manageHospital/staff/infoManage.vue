@@ -129,7 +129,6 @@ const createStaffFunc = () => {
 }
 const updateStaffInfo = (info) => {
     console.log(info)
-    console.log(tableData.value)
     updateStaff(info.value).then(res => {
         console.log(res)
         if (res.code === 0) {

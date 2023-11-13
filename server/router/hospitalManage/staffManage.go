@@ -19,6 +19,8 @@ func (s *StaffManageRouter) InitStaffManageRouter(Router *gin.RouterGroup, Route
 		staffManageRouter.POST("batchCreate", staffManageApi.GetStaffInfoList)
 		staffManageRouter.DELETE("deleteStaff", staffManageApi.DeleteStaff)
 		staffManageRouter.DELETE("batchDelete", staffManageApi.GetStaffInfoList)
-		staffManageRouter.POST("updateStaff", staffManageApi.UpdateBasicStaffInfo)
+		staffManageRouter.POST("updateStaff", staffManageApi.UpdateStaffInfo)
+		staffManageRouter.POST("updateBasicStaff", staffManageApi.UpdateBasicStaffInfo)
+		staffManageRouter.POST("updateSystemConfig", staffManageApi.UpdateSystemConfig)
 	}
 }
