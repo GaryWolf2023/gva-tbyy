@@ -20,7 +20,7 @@ func (baseMenuService *BaseMenuService) DeleteBaseMenu(id int) (err error) {
 	err = global.GVA_DB.Preload("MenuBtn").Preload("Parameters").Where("parent_id = ?", id).First(&system.SysBaseMenu{}).Error
 	if err != nil {
 		var menu system.SysBaseMenu
-		db := global.GVA_DB.Preload("SysAuthorities").Where("id = ?", id).First(&menu).Delete(&menu)
+		db := global.GVA_DB.Preload("SysAuthoritys").Where("id = ?", id).First(&menu).Delete(&menu)
 		err = global.GVA_DB.Delete(&system.SysBaseMenuParameter{}, "sys_base_menu_id = ?", id).Error
 		err = global.GVA_DB.Delete(&system.SysBaseMenuBtn{}, "sys_base_menu_id = ?", id).Error
 		err = global.GVA_DB.Delete(&system.SysAuthorityBtn{}, "sys_menu_id = ?", id).Error
@@ -28,7 +28,7 @@ func (baseMenuService *BaseMenuService) DeleteBaseMenu(id int) (err error) {
 			return err
 		}
 		if len(menu.SysAuthoritys) > 0 {
-			err = global.GVA_DB.Model(&menu).Association("SysAuthorities").Delete(&menu.SysAuthoritys)
+			err = global.GVA_DB.Model(&menu).Association("SysAuthoritys").Delete(&menu.SysAuthoritys)
 		} else {
 			err = db.Error
 			if err != nil {
@@ -75,7 +75,7 @@ func (baseMenuService *BaseMenuService) UpdateBaseMenu(menu system.SysBaseMenu) 
 		if txErr != nil {
 			global.GVA_LOG.Debug(txErr.Error())
 			return txErr
-		}
+		}g
 		txErr = tx.Unscoped().Delete(&system.SysBaseMenuBtn{}, "sys_base_menu_id = ?", menu.ID).Error
 		if txErr != nil {
 			global.GVA_LOG.Debug(txErr.Error())
