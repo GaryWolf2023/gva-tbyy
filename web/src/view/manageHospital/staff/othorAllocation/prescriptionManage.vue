@@ -39,7 +39,7 @@
         </ManageTemplate>
         <el-dialog
           v-model="dialogVisible"
-          :title="dialogType==='create'?'新增保险条目':'编辑保险条目'"
+          :title="dialogType==='create'?'新增':'编辑'"
           width="800px"
           :before-close="handleClose"
         >

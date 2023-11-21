@@ -26,7 +26,7 @@
                             :icon="InfoFilled"
                             icon-color="#626AEF"
                             title="确定删除?"
-                            @confirm="deleteStaffInfoFunc(scope.row.id)">
+                            @confirm="deleteJobFunc(scope.row.id)">
                             <template #reference>
                                 <el-button link type="primary" size="small" :style="{ padding: '0', lineHeight: '14px' }">删除</el-button>
                             </template>
@@ -50,7 +50,7 @@
         </div>
         <el-dialog
           v-model="dialogVisible"
-          :title="dialogType==='create'?'新增保险条目':'编辑保险条目'"
+          :title="dialogType==='create'?'新增职称条目':'编辑职称条目'"
           width="1000px"
           :before-close="handleClose"
         >
@@ -221,6 +221,15 @@ const updateOfTable = () => {
         employeeId: Number(userInfo.value.employee_id)
     }).then(res => {
         console.log(res);
+        if (res.code === 0) {
+            ElMessage.success(res.msg)
+        } else {
+            ElMessage.error(res.msg)
+        }
+    })
+}
+const deleteJobFunc = (id) => {
+    deleteJobTitle({id}).then(res => {
         if (res.code === 0) {
             ElMessage.success(res.msg)
         } else {

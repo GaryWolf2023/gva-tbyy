@@ -18,7 +18,7 @@
                   </template>
                 </el-table-column>
                 <el-table-column prop="baseNum" width="160px" label="所属部门" align="center" />
-                <el-table-column prop="noOfRecruitment" label="招聘目标" align="center" />
+                <el-table-column prop="noOfRecruitment" label="招聘员工目标" align="center" />
                 <el-table-column prop="noOfEmployee" label="现有员工数量" align="center" />
                 <el-table-column prop="userId" label="招聘人员" align="center" />
                 <el-table-column prop="jobCode" label="岗位代码" align="center" />
@@ -34,7 +34,7 @@
                     <el-button link type="text" size="small" @click.prevent="editFunc(scope.row)">
                         <el-icon><Edit /></el-icon>
                     </el-button>
-                    <el-button link type="text" size="small" @click.prevent="deleteRowOfInsurance(scope.row)">
+                    <el-button link type="text" size="small" @click.prevent="deleteJobFunc(scope.row.id)">
                         <el-icon><CloseBold /></el-icon>
                     </el-button>
                   </template>
@@ -43,7 +43,7 @@
         </ManageTemplate>
         <el-dialog
           v-model="dialogVisible"
-          title="新增职位"
+          title="岗位管理"
           width="860px"
           top="10vh"
           :before-close="handleClose"
@@ -65,22 +65,22 @@
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="应用">
-                            <el-input v-model="formData.name" />
+                            <el-input v-model="formData.ApplicationCount" />
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="目标员工数量">
-                              <el-input v-model="formData.NoOfRecruitment" type="number" />
+                              <el-input v-model="formData.noOfRecruitment" type="number" />
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="现有员工数量">
-                            <el-input v-model="formData.NoOfRecruitment" type="number" />
+                            <el-input v-model="formData.noOfEmployee" type="number" />
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="招聘人员">
-                            <el-input v-model="formData.NoOfRecruitment" />
+                            <el-input v-model="formData.userId" />
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
@@ -124,8 +124,8 @@
         </div>
           <template #footer>
             <span class="dialog-footer">
-              <el-button type="success" @click="dialogVisible = false">确认</el-button>
-              <el-button type="info" @click="dialogVisible = false">取消</el-button>
+              <el-button type="success" @click="confirmUpload">确认</el-button>
+              <el-button type="info" @click="cancleUpload">取消</el-button>
             </span>
           </template>
         </el-dialog>
@@ -149,13 +149,6 @@ const typeOfDialog = ref('')
 const formData = ref({})
 const tableData = ref([])
 
-const openDialog = () => {
-    if (typeOfDialog === 'create') {
-        
-    } else if (typeOfDialog === 'edit') {
-        
-    }
-}
 const getOptionsList = () => {
 
 }
@@ -181,15 +174,53 @@ const getListFunc = (obj) => {
     })
 }
 const createButtonFunc = () => {
+    typeOfDialog.value = 'create'
     clearForm()
     dialogVisible.value = true
 }
 const editFunc = (val) => {
+    typeOfDialog.value = 'edit'
     formData.value = val
     dialogVisible.value = true
 }
-const createJobFunc = () => { }
-const updateJobFunc = () => { }
+const confirmUpload = () => {
+    if ( typeOfDialog.value === 'edit' ) {
+        updateJobFunc()
+    } else if( typeOfDialog.value === 'create' ){
+        createJobFunc()
+    }
+}
+const createJobFunc = () => {
+    createJob({ ...formData.value }).then(res => {
+        if (res.code === 0) {
+            ElMessage.success(res.msg)
+        } else {
+            ElMessage.error(res.msg)
+        }
+    })
+}
+const updateJobFunc = () => {
+    updateJob({ ...formData.value }).then(res => {
+        if (res.code === 0) {
+            ElMessage.success(res.msg)
+        } else {
+            ElMessage.error(res.msg)
+        }
+    })
+}
+const deleteJobFunc = (id) => {
+    deleteJob({id}).then(res => {
+        if (res.code === 0) {
+            ElMessage.success(res.msg)
+        } else {
+            ElMessage.error(res.msg)
+        }
+    })
+}
+const cancleUpload = () => {
+    formData.value = {}
+    dialogVisible.value = false
+}
 </script>
 
 <style lang="scss" scoped>
