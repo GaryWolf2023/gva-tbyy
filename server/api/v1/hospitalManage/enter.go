@@ -10,12 +10,18 @@ type ApiGroup struct {
 	QualificationManageApi
 	JobTitleApi
 	PrescriptionQualification
+	ManagePartTimePositionApi
+	DepartmentManageApi
+	CompanyManageApi
 }
 
 var (
-	StaffService        = service.ServiceGroupApp.HospitalManageServiceGroup.StaffManageService
-	AdeptIllnessService = service.ServiceGroupApp.HospitalManageServiceGroup.AdeptIllnessService
-	InsuranceService    = service.ServiceGroupApp.HospitalManageServiceGroup.InsuranceManageService
-	JobTitleService     = service.ServiceGroupApp.HospitalManageServiceGroup.JobTitleService
-	PPQService          = service.ServiceGroupApp.HospitalManageServiceGroup.PrescriptionQualificationService
+	StaffService            = service.ServiceGroupApp.HospitalManageServiceGroup.StaffManageService
+	AdeptIllnessService     = service.ServiceGroupApp.HospitalManageServiceGroup.AdeptIllnessService
+	InsuranceService        = service.ServiceGroupApp.HospitalManageServiceGroup.InsuranceManageService
+	JobTitleService         = service.ServiceGroupApp.HospitalManageServiceGroup.JobTitleService
+	PPQService              = service.ServiceGroupApp.HospitalManageServiceGroup.PrescriptionQualificationService
+	PartTimePositionService = service.ServiceGroupApp.HospitalManageServiceGroup.PartTimePositionService
+	DepartmentManageService = service.ServiceGroupApp.HospitalManageServiceGroup.DepartmentManageService
+	CompanyManageService    = service.ServiceGroupApp.HospitalManageServiceGroup.CompanyManageService
 )

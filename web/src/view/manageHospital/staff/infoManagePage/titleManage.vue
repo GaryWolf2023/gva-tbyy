@@ -112,7 +112,6 @@
                 </el-col>
                 <el-col :span="6">
                     <el-form-item label="手术资质:">
-                        <span>{{ staff.surgryCert }}</span>
                         <el-select v-model="staff.surgryCert" clearable>
                             <el-option label="特大手术资质" value="01"></el-option>
                             <el-option label="中小手术资质" value="02"></el-option>
@@ -183,21 +182,29 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted, watch } from 'vue'
 import { getNumberCode } from '@/api/common'
 import { getListPQ, getPersonPQList, deletePersonPQ, addPersonPQ } from '@/api/prescriptionQualification'
-import { useUserStore } from '@/pinia/modules/user'
-import { storeToRefs  } from 'pinia'
+import { ElMessage } from 'element-plus'
 
-const userStroe = useUserStore()
-const userInfo = storeToRefs(userStroe).userInfo
+watch(
+    () => props.staffInfo,
+    (value) => {
+        if (!!value) {
+            getListFunc()
+        }
+    }
+)
+
+const props = defineProps(['staffInfo'])
+const staff = computed(() => {
+    return props.staffInfo
+})
 
 onMounted(() => {
+    getListFunc()
     getNumberCode('CV05.10.024').then(res => {
         surgryGradeList.value = res.data
-    })
-    getPersonPQList({ employeeId: Number(userInfo.value.employee_id) }).then(res => {
-        console.log(res);
     })
 })
 
@@ -206,6 +213,13 @@ const tableData1 = ref([])
 const dialogVisible = ref(false)
 const surgryGradeList = ref([])
 
+const getListFunc = () => {
+    console.log(typeof(staff.value.id));
+    getPersonPQList({ employeeId: staff.value.id }).then(res => {
+        console.log(res);
+        tableData.value = res.data
+    })
+}
 const openDialog = () => {
     getListPQ({
         page: 1,
@@ -216,30 +230,44 @@ const openDialog = () => {
     })
 }
 
-const props = defineProps(['staffInfo'])
-const staff = computed(() => {
-    return props.staffInfo
-})
-const deleteStaffInfoFunc = (row) => { }
+const deleteStaffInfoFunc = (row) => {
+    deletePersonPQ({
+        employeeId: Number(staff.value.id),
+        prescriptionId: row.id,
+    }).then(res => {
+        if (res.code === 0) {
+            ElMessage.success(res.msg)
+        } else {
+            ElMessage.error(res.msg)
+        }
+        getListFunc()
+    })
+}
 const onAddItem = () => {
     dialogVisible.value = true
 }
+
 const AddPPQFunc = (obj) => {
     addPersonPQ({
-        employeeId: Number(userInfo.value.employee_id),
+        employeeId: Number(staff.value.id),
         prescriptionId: obj.id,
     }).then(res => {
-
+        if (res.code === 0) {
+            ElMessage.success(res.msg)
+        } else {
+            ElMessage.error(res.msg)
+        }
+        getListFunc()
     })
 }
 </script>
 
 <style lang="scss" scoped>
 .prescription-qualification {
-    height: 500px;
+    max-height: 500px;
     width: 100%;
     .table-show {
-        height: 460px;
+        max-height: 460px;
     }
 }
 </style>

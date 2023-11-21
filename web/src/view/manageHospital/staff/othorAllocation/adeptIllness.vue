@@ -47,14 +47,6 @@
                 </li>
             </ul>
           </div>
-          <!-- <template #footer>
-            <span class="dialog-footer">
-              <el-button @click="dialogVisible = false">取消</el-button>
-              <el-button type="primary" @click="addAdeptIllnessFunc">
-                确认
-              </el-button>
-            </span>
-          </template> -->
         </el-dialog>
     </div>
 </template>
@@ -69,6 +61,7 @@ import { getAdeptIllnessList, addAdeptIllness, deleteAdeptIllness } from '@/api/
 const props = defineProps({
     id: Number
 })
+
 const dialogVisible = ref(false)
 const tableData = ref([])
 const illnessList = ref([])

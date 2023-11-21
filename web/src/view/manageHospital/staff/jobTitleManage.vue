@@ -16,17 +16,6 @@
                 <el-table-column prop="category" label="职称类别" align="center" />
                 <el-table-column prop="grade" label="职称级别" align="center" />
                 <el-table-column prop="ceilingvalue" label="---------" align="center" />
-
-                <!-- <el-table-column prop="" label="是否启用" align="center">
-                    <template #default="scope">
-                        <el-switch
-                          v-model="scope.row.active"
-                          class="ml-2"
-                          style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
-                          @change="updateOfTable"
-                        />
-                    </template>
-                </el-table-column> -->
                 <el-table-column width="200px" align="center">
                     <template #default="scope">
                         <el-button link type="primary" size="small" :style="{ padding: '0', lineHeight: '14px' }" @click="openDialog('edit', scope.row)">编辑</el-button>

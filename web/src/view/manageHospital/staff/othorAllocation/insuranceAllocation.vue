@@ -78,15 +78,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
 import { getInsuranceList, getPersonInsuranceList, addPersonInsurance, deletePersonInsurance } from '@/api/insuranceManage.js'
 import { ElMessage } from 'element-plus';
-import { useUserStore } from '@/pinia/modules/user'
-import { storeToRefs  } from 'pinia'
-
-const userStroe = useUserStore()
-const userInfo = storeToRefs(userStroe).userInfo
 
 const dialogVisible = ref(false)
 const tableData = ref([])
@@ -96,16 +91,29 @@ const page = ref(0)
 const pageSize = ref(20)
 const total = ref(0)
 
+const props = defineProps(['staffInfo'])
+const staff = computed(() => {
+    return props.staffInfo
+})
+
 onMounted(() => {
     getPersonInsuranceListFunc()
 })
+watch(
+    () => props.staffInfo,
+    (value) => {
+        if (!!value) {
+            getPersonInsuranceListFunc()
+        }
+    }
+)
 
 const Opendialog = () => {
     getInsuranceListFunc()
 }
 
 const getPersonInsuranceListFunc = () => {
-    getPersonInsuranceList({id: Number(userInfo.value.employee_id)}).then(res => {
+    getPersonInsuranceList({id: staff.value.id}).then(res => {
         if (res.code === 0) {
             tableData.value = res.data
         } else {
@@ -130,12 +138,13 @@ const getInsuranceListFunc = () => {
 }
 
 const addInsuranceFunc = (row) => {
-    addPersonInsurance({ employeeId: Number(userInfo.value.employee_id), insuranceId: row.id }).then(res => {
+    addPersonInsurance({ employeeId: Number(staff.value.id), insuranceId: row.id }).then(res => {
         if (res.code === 0) {
             ElMessage.success(res.msg)
         } else {
             ElMessage.warning(res.msg)
         }
+        getPersonInsuranceListFunc()
     })
 }
 
@@ -144,13 +153,13 @@ const handleClose = (down) => {
 }
 
 const deleteRowOfInsurance = (raw) => {
-    deletePersonInsurance({ employeeId: Number(userInfo.value.employee_id), insuranceId: Number(raw.id) }).then(res => {
+    deletePersonInsurance({ employeeId: Number(staff.value.id), insuranceId: Number(raw.id) }).then(res => {
         if (res.code === 0) {  
             ElMessage.success(res.msg)
-            getPersonInsuranceListFunc()
         } else {
             ElMessage.error(res.msg)
         }
+        getPersonInsuranceListFunc()
     })
 }
 </script>

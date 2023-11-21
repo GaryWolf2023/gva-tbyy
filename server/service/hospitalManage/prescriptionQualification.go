@@ -81,6 +81,7 @@ func (p *PrescriptionQualificationService) AddPPQ(req request.AddPPQ) error {
 	}
 	return nil
 }
+
 func (p *PrescriptionQualificationService) DeletePPQ(req request.DeletePPQ) error {
 	result1 := global.GVA_DB.Table("hr_employee_person_prescription").Where("employee_id = ? AND prescription_id = ?", req.EmployeeId, req.PrescriptionId).Unscoped().Delete(&req)
 	if result1.Error != nil {
@@ -88,6 +89,7 @@ func (p *PrescriptionQualificationService) DeletePPQ(req request.DeletePPQ) erro
 	}
 	return nil
 }
+
 func (p *PrescriptionQualificationService) GetListPPQ(req request.GetListPPQ) (error, []hospitalManage.HrEmployeeChufang) {
 	var dbinfo []hospitalManage.HrEmployeePersonPrescription
 	var idList []int
@@ -96,6 +98,7 @@ func (p *PrescriptionQualificationService) GetListPPQ(req request.GetListPPQ) (e
 	if result1.Error != nil {
 		return result1.Error, []hospitalManage.HrEmployeeChufang{}
 	}
+	fmt.Println("-------------------------------------", dbinfo)
 	if len(dbinfo) == 0 {
 		return nil, nil
 	}

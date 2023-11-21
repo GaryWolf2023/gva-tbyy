@@ -84,12 +84,13 @@ func (p *PrescriptionQualification) AddPersonPQItem(c *gin.Context) {
 		response.FailWithMessage("新增失败", c)
 		return
 	}
-	response.OkWithMessage("获取失败", c)
+	response.OkWithMessage("添加成功", c)
 }
 
 func (p *PrescriptionQualification) GetPersonPQList(c *gin.Context) {
 	var id request.GetListPPQ
 	err := c.ShouldBindQuery(&id)
+	fmt.Println(id)
 	if err != nil {
 		response.FailWithMessage("参数错误", c)
 		return
@@ -114,5 +115,5 @@ func (p *PrescriptionQualification) DeletePersonPQ(c *gin.Context) {
 		response.FailWithMessage("获取失败", c)
 		return
 	}
-	response.OkWithMessage("获取成功", c)
+	response.OkWithMessage("删除成功", c)
 }

@@ -8,6 +8,6 @@ type GetList struct {
 	Active    bool   `json:"active"`
 }
 type GetPPQList struct {
-	EmployeeId     int `json:"employee_id"`
-	PrescriptionId int `json:"prescription_id"`
+	EmployeeId     int `json:"employeeId"`
+	PrescriptionId int `json:"prescriptionId"`
 }

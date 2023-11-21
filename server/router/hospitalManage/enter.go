@@ -6,4 +6,7 @@ type RouterGroup struct {
 	JobTitle
 	PrescriptionQualification
 	BasicInsuranceRouter
+	PartTimePositionRouter
+	DepartmentManageRouter
+	CompanyManageRouter
 }

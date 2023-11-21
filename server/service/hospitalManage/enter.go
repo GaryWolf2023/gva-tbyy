@@ -6,4 +6,7 @@ type ServiceGroup struct {
 	InsuranceManageService
 	JobTitleService
 	PrescriptionQualificationService
+	PartTimePositionService
+	DepartmentManageService
+	CompanyManageService
 }

@@ -86,7 +86,10 @@ func Routers() *gin.Engine {
 		hospitalManage.InitStaffAdeptIllnessManageRouter(PrivateGroup, PublicGroup) // 员工擅长疾病管理
 		hospitalManage.InitBasicInsuranceRouter(PrivateGroup, PublicGroup)          // 保险管理（包喊个人保险管理和保险管理）
 		hospitalManage.InitJobTitleRouter(PrivateGroup, PublicGroup)                // 管理职称
+		hospitalManage.InitPartTimePositionRouter(PrivateGroup, PublicGroup)        // 工作岗位管理
 		hospitalManage.InitPPRouter(PrivateGroup, PublicGroup)                      // 处方资质管理
+		hospitalManage.InitDepartmentManageRouter(PrivateGroup, PublicGroup)        // 科室管理
+		hospitalManage.InitCompanyManageRouter(PrivateGroup, PublicGroup)           // 公司管理
 
 		commonApi.InitTableDataRouter(PublicGroup) // 一些公共API用于比如再form中需要请求的数据
 	}

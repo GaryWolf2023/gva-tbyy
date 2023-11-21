@@ -1,13 +1,14 @@
 package hospitalManage
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/jackc/pgx/v5/pgtype"
 	"time"
 )
 
 type HrEmployee struct {
 	ID                          int       `json:"id" gorm:"column:id"`
+	CreateDate                  time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate                   time.Time `json:"writeDate" gorm:"column:write_date"`
 	Name                        string    `json:"name" gorm:"column:name"`
 	ResourceId                  int       `json:"resource_id" gorm:"column:resource_id"`
 	CompanyId                   int       `json:"companyId" gorm:"column:company_id"`
@@ -63,8 +64,6 @@ type HrEmployee struct {
 	DepartureDescription        string    `json:"departureDescription" gorm:"column:departure_description"`
 	Active                      bool      `json:"active" gorm:"column:active"`
 	WorkPermitScheduledActivity bool      `json:"workPermitScheduledActivity" gorm:"column:work_permit_scheduled_activity"`
-	CreateDate                  time.Time `json:"createDate" gorm:"column:create_date"`
-	WriteDate                   time.Time `json:"writeDate" gorm:"column:write_date"`
 	LastAttendanceId            int       `json:"lastAttendanceId" gorm:"column:last_attendance_id"`
 	LastCheckIn                 time.Time `json:"lastCheckIn" gorm:"column:last_check_in"`
 	LastCheckOut                time.Time `json:"lastCheckOut" gorm:"column:last_check_out"`
@@ -122,7 +121,9 @@ type HrEmployee struct {
 	GraduationDate              time.Time `json:"graduationDate" gorm:"column:graduation_date"`
 }
 type ResPartner struct {
-	global.GVA_MODEL
+	ID                      int       `json:"id" gorm:"column:id"`
+	CreateDate              time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate               time.Time `json:"writeDate" gorm:"column:write_date"`
 	CreateUid               int       `json:"createUid" gorm:"create_uid"`
 	WriteUid                int       `json:"writeUid" gorm:"update_uid"`
 	CompanyId               int       `json:"companyId" gorm:"company_id"`
@@ -191,22 +192,23 @@ type ResPartner struct {
 	HouseNumber             string    `json:"houseNumber" gorm:"house_number"`
 }
 type ResPartnerBank struct {
-	global.GVA_MODEL
-	CreateUid               int    `json:"createUid" gorm:"create_uid"`
-	WriteUid                int    `json:"writeUid" gorm:"update_uid"`
-	PartnerId               int    `json:"partnerId" gorm:"partner_id"`
-	BankId                  int    `json:"bankId" gorm:"bank_id"`
-	Sequence                int    `json:"sequence" gorm:"sequence"`
-	CurrencyId              int    `json:"currencyId" gorm:"currency_id"`
-	CompanyId               int    `json:"companyId" gorm:"company_id"`
-	AccNumber               string `json:"accNumber" gorm:"acc_number"`
-	SanitizedAccNumber      string `json:"sanitizedAccNumber" gorm:"sanitized_acc_number"`
-	AccHolderName           string `json:"accHolderName" gorm:"acc_holder_name"`
-	Active                  bool   `json:"active" gorm:"active"`
-	AllowOutPayment         bool   `json:"allowOutPayment" gorm:"allow_out_payment"`
-	MessageMainAttachmentId int    `json:"messageMainAttachmentId" gorm:"message_main_attachment_id"`
+	ID                      int       `json:"id" gorm:"column:id"`
+	CreateDate              time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate               time.Time `json:"writeDate" gorm:"column:write_date"`
+	CreateUid               int       `json:"createUid" gorm:"create_uid"`
+	WriteUid                int       `json:"writeUid" gorm:"update_uid"`
+	PartnerId               int       `json:"partnerId" gorm:"partner_id"`
+	BankId                  int       `json:"bankId" gorm:"bank_id"`
+	Sequence                int       `json:"sequence" gorm:"sequence"`
+	CurrencyId              int       `json:"currencyId" gorm:"currency_id"`
+	CompanyId               int       `json:"companyId" gorm:"company_id"`
+	AccNumber               string    `json:"accNumber" gorm:"acc_number"`
+	SanitizedAccNumber      string    `json:"sanitizedAccNumber" gorm:"sanitized_acc_number"`
+	AccHolderName           string    `json:"accHolderName" gorm:"acc_holder_name"`
+	Active                  bool      `json:"active" gorm:"active"`
+	AllowOutPayment         bool      `json:"allowOutPayment" gorm:"allow_out_payment"`
+	MessageMainAttachmentId int       `json:"messageMainAttachmentId" gorm:"message_main_attachment_id"`
 }
-type ResCompany struct{}
 type ResUsers struct{}
 type ResCountry struct{}
 type ResCountryCity struct{}
@@ -215,7 +217,9 @@ type RankRank struct{}
 type ResourceCalendar struct{}
 type ResourceResource struct{}
 type HrContract struct {
-	global.GVA_MODEL
+	ID                      int       `json:"id" gorm:"column:id"`
+	CreateDate              time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate               time.Time `json:"writeDate" gorm:"column:write_date"`
 	CreateUid               int       `json:"createUid" gorm:"create_uid"`
 	WriteUid                int       `json:"writeUid" gorm:"update_uid"`
 	MessageMainAttachmentId int       `json:"messageMainAttachmentId" gorm:"message_main_attachment_id"`
@@ -252,72 +256,59 @@ type HrContract struct {
 	OverDay                 float64   `json:"overDay" gorm:"over_day"`
 	WorkingHours            int       `json:"workingHours" gorm:"working_hours"`
 }
-type HrDepartment struct {
-	global.GVA_MODEL
-	CreateUid               int    `json:"createUid" gorm:"create_uid"`
-	WriteUid                int    `json:"writeUid" gorm:"update_uid"`
-	MessageMainAttachmentId int    `json:"messageMainAttachmentId" gorm:"message_main_attachment_id"`
-	CompanyId               int    `json:"companyId" gorm:"company_id"`
-	ParentId                int    `json:"parentId" gorm:"parent_id"`
-	ManagerId               int    `json:"managerId" gorm:"manager_id"`
-	Color                   int    `json:"color" gorm:"color"`
-	MasterDepartmentId      int    `json:"masterDepartmentId" gorm:"master_department_id"`
-	Name                    string `json:"name" gorm:"name"`
-	CompleteName            string `json:"completeName" gorm:"complete_name"`
-	ParentPath              string `json:"parentPath" gorm:"parent_path"`
-	Note                    string `json:"note" gorm:"note"`
-	Active                  bool   `json:"active" gorm:"active"`
-	Property                int    `json:"property" gorm:"property"`
-	Virtual                 bool   `json:"virtual" gorm:"virtual"`
-	Available               bool   `json:"available" gorm:"available"`
-	DutyId                  int    `json:"dutyId" gorm:"duty_id"`
-	Code                    string `json:"code" gorm:"code"`
-}
 type HrDepartureReason struct {
-	global.GVA_MODEL
-	Sequence  int               `json:"sequence" gorm:"sequence"`
-	CreateUid int               `json:"createUid" gorm:"create_uid"`
-	WriteUid  int               `json:"writeUid" gorm:"update_uid"`
-	Name      pgtype.JSONBCodec `json:"name" gorm:"name"`
+	ID         int               `json:"id" gorm:"column:id"`
+	CreateDate time.Time         `json:"createDate" gorm:"column:create_date"`
+	WriteDate  time.Time         `json:"writeDate" gorm:"column:write_date"`
+	Sequence   int               `json:"sequence" gorm:"sequence"`
+	CreateUid  int               `json:"createUid" gorm:"create_uid"`
+	WriteUid   int               `json:"writeUid" gorm:"update_uid"`
+	Name       pgtype.JSONBCodec `json:"name" gorm:"name"`
 }
 type GradeGrade struct {
-	global.GVA_MODEL
-	CreateUid   int    `json:"createUid" gorm:"create_uid"`
-	WriteUid    int    `json:"writeUid" gorm:"update_uid"`
-	Name        string `json:"name" gorm:"name"`
-	Description string `json:"description" gorm:"description"`
-	Active      bool   `json:"active" gorm:"active"`
+	ID          int       `json:"id" gorm:"column:id"`
+	CreateDate  time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate   time.Time `json:"writeDate" gorm:"column:write_date"`
+	CreateUid   int       `json:"createUid" gorm:"create_uid"`
+	WriteUid    int       `json:"writeUid" gorm:"update_uid"`
+	Name        string    `json:"name" gorm:"name"`
+	Description string    `json:"description" gorm:"description"`
+	Active      bool      `json:"active" gorm:"active"`
 }
 type HrJob struct {
-	global.GVA_MODEL
-	CreateUid               int    `json:"createUid" gorm:"create_uid"`
-	WriteUid                int    `json:"writeUid" gorm:"update_uid"`
-	MessageMainAttachmentId int    `json:"messageMainAttachmentId" gorm:"message_main_attachment_id"`
-	Sequence                int    `json:"sequence" gorm:"sequence"`
-	ExpectedEmployees       int    `json:"expectedEmployees" gorm:"expected_employees"`
-	NoOfEmployee            int    `json:"noOfEmployee" gorm:"no_of_employee"`
-	NoOfRecruitment         int    `json:"noOfRecruitment" gorm:"no_of_recruitment"`
-	NoOfHiredEmployee       int    `json:"noOfHiredEmployee" gorm:"no_of_hired_employee"`
-	DepartmentId            int    `json:"departmentId" gorm:"department_id"`
-	CompanyId               int    `json:"companyId" gorm:"company_id"`
-	ContractTypeId          int    `json:"contractTypeId" gorm:"contract_type_id"`
-	Name                    string `json:"name" gorm:"name"`
-	Description             string `json:"description" gorm:"description"`
-	Requirements            string `json:"requirements" gorm:"requirements"`
-	Active                  bool   `json:"active" gorm:"active"`
-	AliasId                 int    `json:"aliasId" gorm:"alias_id"`
-	AddressId               int    `json:"addressId" gorm:"address_id"`
-	ManagerId               int    `json:"managerId" gorm:"manager_id"`
-	UserId                  int    `json:"userId" gorm:"user_id"`
-	HrResponsibleId         int    `json:"hrResponsibleId" gorm:"hr_responsible_id"`
-	Color                   int    `json:"color" gorm:"color"`
-	NaturePost              string `json:"naturePost" gorm:"nature_post"`
-	CategoryPost            string `json:"categoryPost" gorm:"category_post"`
-	JobCode                 string `json:"jobCode" gorm:"job_code"`
-	Show                    string `json:"show" gorm:"show"`
+	ID                      int       `json:"id" gorm:"column:id"`
+	CreateDate              time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate               time.Time `json:"writeDate" gorm:"column:write_date"`
+	CreateUid               int       `json:"createUid" gorm:"column:create_uid;foreignKey:CreateUid"`
+	WriteUid                int       `json:"writeUid" gorm:"column:update_uid;foreignKey:WriteUid"`
+	MessageMainAttachmentId int       `json:"messageMainAttachmentId" gorm:"column:message_main_attachment_id"`
+	Sequence                int       `json:"sequence" gorm:"column:sequence"`
+	ExpectedEmployees       int       `json:"expectedEmployees" gorm:"column:expected_employees"`
+	NoOfEmployee            int       `json:"noOfEmployee" gorm:"column:no_of_employee"`
+	NoOfRecruitment         int       `json:"noOfRecruitment" gorm:"column:no_of_recruitment"`
+	NoOfHiredEmployee       int       `json:"noOfHiredEmployee" gorm:"column:no_of_hired_employee"`
+	DepartmentId            int       `json:"departmentId" gorm:"column:department_id;foreignKey:DepartmentId"`
+	CompanyId               int       `json:"companyId" gorm:"column:company_id;foreignKey:CompanyId"`
+	ContractTypeId          int       `json:"contractTypeId" gorm:"column:contract_type_id"`
+	Name                    string    `json:"name" gorm:"column:name"`
+	Description             string    `json:"description" gorm:"column:description"`
+	Requirements            string    `json:"requirements" gorm:"column:requirements"`
+	Active                  bool      `json:"active" gorm:"column:active"`
+	AliasId                 int       `json:"aliasId" gorm:"column:alias_id"`
+	AddressId               int       `json:"addressId" gorm:"column:address_id;foreignKey:AddressId"`
+	ManagerId               int       `json:"managerId" gorm:"column:manager_id"`
+	UserId                  int       `json:"userId" gorm:"column:user_id;foreignKey:UserId"`
+	HrResponsibleId         int       `json:"hrResponsibleId" gorm:"column:hr_responsible_id"`
+	Color                   int       `json:"color" gorm:"column:color"`
+	NaturePost              string    `json:"naturePost" gorm:"column:nature_post"`
+	CategoryPost            string    `json:"categoryPost" gorm:"column:category_post"`
+	JobCode                 string    `json:"jobCode" gorm:"column:job_code"`
+	Show                    string    `json:"show" gorm:"column:show"`
 }
 type HrAttendance struct {
-	global.GVA_MODEL
+	ID          int       `json:"id" gorm:"column:id"`
+	CreateDate  time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate   time.Time `json:"writeDate" gorm:"column:write_date"`
 	EmployeeId  int       `json:"employeeId" gorm:"employee_id"`
 	CreateUid   int       `json:"createUid" gorm:"create_uid"`
 	WriteUid    int       `json:"writeUid" gorm:"update_uid"`
@@ -327,7 +318,9 @@ type HrAttendance struct {
 	CompanyId   int       `json:"companyId" gorm:"company_id"`
 }
 type HrEmployeePractisingcert struct {
-	global.GVA_MODEL
+	ID                 int       `json:"id" gorm:"column:id"`
+	CreateDate         time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate          time.Time `json:"writeDate" gorm:"column:write_date"`
 	Employee           int       `json:"employee" gorm:"employee"`
 	CreateUid          int       `json:"createUid" gorm:"create_uid"`
 	WriteUid           int       `json:"writeUid" gorm:"update_uid"`
@@ -346,61 +339,73 @@ type HrEmployeePractisingcert struct {
 	RevokeTime         time.Time `json:"revokeTime" gorm:"revoke_time"`
 }
 type HrEmployeeSpecialist struct {
-	global.GVA_MODEL
-	CreateUid int    `json:"createUid" gorm:"create_uid"`
-	WriteUid  int    `json:"writeUid" gorm:"update_uid"`
-	Name      string `json:"name" gorm:"name"`
+	ID         int       `json:"id" gorm:"column:id"`
+	CreateDate time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate  time.Time `json:"writeDate" gorm:"column:write_date"`
+	CreateUid  int       `json:"createUid" gorm:"create_uid"`
+	WriteUid   int       `json:"writeUid" gorm:"update_uid"`
+	Name       string    `json:"name" gorm:"name"`
 }
 type HrWorkLocation struct {
-	global.GVA_MODEL
-	CreateUid      int    `json:"createUid" gorm:"create_uid"`
-	WriteUid       int    `json:"writeUid" gorm:"update_uid"`
-	CompanyId      int    `json:"companyId" gorm:"company_id"`
-	AddressId      int    `json:"addressId" gorm:"address_id"`
-	Name           string `json:"name" gorm:"name"`
-	LocationNumber string `json:"locationNumber" gorm:"location_number"`
-	Active         bool   `json:"active" gorm:"active"`
+	ID             int       `json:"id" gorm:"column:id"`
+	CreateDate     time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate      time.Time `json:"writeDate" gorm:"column:write_date"`
+	CreateUid      int       `json:"createUid" gorm:"create_uid"`
+	WriteUid       int       `json:"writeUid" gorm:"update_uid"`
+	CompanyId      int       `json:"companyId" gorm:"company_id"`
+	AddressId      int       `json:"addressId" gorm:"address_id"`
+	Name           string    `json:"name" gorm:"name"`
+	LocationNumber string    `json:"locationNumber" gorm:"location_number"`
+	Active         bool      `json:"active" gorm:"active"`
 }
 type IrAttachment struct {
-	global.GVA_MODEL
-	CreateUid    int    `json:"createUid" gorm:"create_uid"`
-	WriteUid     int    `json:"writeUid" gorm:"update_uid"`
-	ResId        int    `json:"resId" gorm:"res_id"`
-	CompanyId    int    `json:"companyId" gorm:"company_id"`
-	FileSize     int    `json:"fileSize" gorm:"file_size"`
-	Name         string `json:"name" gorm:"name"`
-	ResModel     string `json:"resModel" gorm:"res_model"`
-	ResField     string `json:"resField" gorm:"res_field"`
-	Type         string `json:"type" gorm:"type"`
-	Url          string `json:"url" gorm:"url"`
-	AccessToken  string `json:"accessToken" gorm:"access_token"`
-	StoreFname   string `json:"storeFname" gorm:"store_fname"`
-	Checksum     string `json:"checksum" gorm:"checksum"`
-	Mimetype     string `json:"mimetype" gorm:"mimetype"`
-	Description  string `json:"description" gorm:"description"`
-	IndexContent string `json:"indexContent" gorm:"index_content"`
-	Public       bool   `json:"public" gorm:"public"`
-	DbDatas      []byte `json:"dbDatas" gorm:"db_dates"`
-	OriginalId   int    `json:"originalId" gorm:"original_id"`
-	S3flag       bool   `json:"s3Flag" gorm:"s3flag"`
+	ID           int       `json:"id" gorm:"column:id"`
+	CreateDate   time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate    time.Time `json:"writeDate" gorm:"column:write_date"`
+	CreateUid    int       `json:"createUid" gorm:"create_uid"`
+	WriteUid     int       `json:"writeUid" gorm:"update_uid"`
+	ResId        int       `json:"resId" gorm:"res_id"`
+	CompanyId    int       `json:"companyId" gorm:"company_id"`
+	FileSize     int       `json:"fileSize" gorm:"file_size"`
+	Name         string    `json:"name" gorm:"name"`
+	ResModel     string    `json:"resModel" gorm:"res_model"`
+	ResField     string    `json:"resField" gorm:"res_field"`
+	Type         string    `json:"type" gorm:"type"`
+	Url          string    `json:"url" gorm:"url"`
+	AccessToken  string    `json:"accessToken" gorm:"access_token"`
+	StoreFname   string    `json:"storeFname" gorm:"store_fname"`
+	Checksum     string    `json:"checksum" gorm:"checksum"`
+	Mimetype     string    `json:"mimetype" gorm:"mimetype"`
+	Description  string    `json:"description" gorm:"description"`
+	IndexContent string    `json:"indexContent" gorm:"index_content"`
+	Public       bool      `json:"public" gorm:"public"`
+	DbDatas      []byte    `json:"dbDatas" gorm:"db_dates"`
+	OriginalId   int       `json:"originalId" gorm:"original_id"`
+	S3flag       bool      `json:"s3Flag" gorm:"s3flag"`
 }
 type HrEmployeePrescription struct {
-	global.GVA_MODEL
-	CreateUid int    `json:"createUid" gorm:"create_uid"`
-	WriteUid  int    `json:"writeUid" gorm:"update_uid"`
-	Name      string `json:"name" gorm:"name"`
-	Active    bool   `json:"active" gorm:"active"`
+	ID         int       `json:"id" gorm:"column:id"`
+	CreateDate time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate  time.Time `json:"writeDate" gorm:"column:write_date"`
+	CreateUid  int       `json:"createUid" gorm:"create_uid"`
+	WriteUid   int       `json:"writeUid" gorm:"update_uid"`
+	Name       string    `json:"name" gorm:"name"`
+	Active     bool      `json:"active" gorm:"active"`
 }
 type HrEmployeeCategory struct {
-	global.GVA_MODEL
-	CreateUid int    `json:"createUid" gorm:"create_uid"`
-	WriteUid  int    `json:"writeUid" gorm:"update_uid"`
-	Color     int    `json:"color" gorm:"color"`
-	Name      string `json:"name" gorm:"name"`
-	Active    bool   `json:"active" gorm:"active"`
+	ID         int       `json:"id" gorm:"column:id"`
+	CreateDate time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate  time.Time `json:"writeDate" gorm:"column:write_date"`
+	CreateUid  int       `json:"createUid" gorm:"create_uid"`
+	WriteUid   int       `json:"writeUid" gorm:"update_uid"`
+	Color      int       `json:"color" gorm:"color"`
+	Name       string    `json:"name" gorm:"name"`
+	Active     bool      `json:"active" gorm:"active"`
 }
 type HrEmployeeDocument struct {
-	global.GVA_MODEL
+	ID               int       `json:"id" gorm:"column:id"`
+	CreateDate       time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate        time.Time `json:"writeDate" gorm:"column:write_date"`
 	EmployeeRef      int       `json:"employeeRef" gorm:"employee_ref"`
 	DocumentType     int       `json:"documentType" gorm:"document_type"`
 	BeforeDays       int       `json:"beforeDays" gorm:"before_days"`
@@ -413,7 +418,9 @@ type HrEmployeeDocument struct {
 	Description      string    `json:"description" gorm:"description"`
 }
 type HrEmployeeFamily struct {
-	global.GVA_MODEL
+	ID            int       `json:"id" gorm:"column:id"`
+	CreateDate    time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate     time.Time `json:"writeDate" gorm:"column:write_date"`
 	CreateUid     int       `json:"createUid" gorm:"create_uid"`
 	WriteUid      int       `json:"writeUid" gorm:"update_uid"`
 	Job           string    `json:"job" gorm:"job"`
@@ -424,7 +431,9 @@ type HrEmployeeFamily struct {
 	MemberName    string    `json:"memberName" gorm:"member_name"`
 }
 type HrAnnouncement struct {
-	global.GVA_MODEL
+	ID                      int       `json:"id" gorm:"column:id"`
+	CreateDate              time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate               time.Time `json:"writeDate" gorm:"column:write_date"`
 	CreateUid               int       `json:"createUid" gorm:"create_uid"`
 	WriteUid                int       `json:"writeUid" gorm:"update_uid"`
 	MessageMainAttachmentId int       `json:"messageMainAttachmentId" gorm:"message_main_attachment_id"`
@@ -441,12 +450,14 @@ type HrAnnouncement struct {
 }
 
 type HrApplicant struct {
-	global.GVA_MODEL
-	CreateUid  int `json:"createUid" gorm:"create_uid"`
-	WriteUid   int `json:"writeUid" gorm:"update_uid"`
-	CampaignId int `json:"campaignId" gorm:"campaign_id"`
-	SourceId   int `json:"sourceId" gorm:"source_id"`
-	MediumId   int `json:"mediumId" gorm:"medium_id"`
+	ID         int       `json:"id" gorm:"column:id"`
+	CreateDate time.Time `json:"createDate" gorm:"column:create_date"`
+	WriteDate  time.Time `json:"writeDate" gorm:"column:write_date"`
+	CreateUid  int       `json:"createUid" gorm:"create_uid"`
+	WriteUid   int       `json:"writeUid" gorm:"update_uid"`
+	CampaignId int       `json:"campaignId" gorm:"campaign_id"`
+	SourceId   int       `json:"sourceId" gorm:"source_id"`
+	MediumId   int       `json:"mediumId" gorm:"medium_id"`
 }
 
 func (h *HrEmployee) Table() string {
