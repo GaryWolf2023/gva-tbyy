@@ -1,5 +1,6 @@
 package request
 
+// 职称管理
 type GetJobTitle struct {
 	ID           int     `json:"id"`
 	Orderno      int     `json:"orderno"`

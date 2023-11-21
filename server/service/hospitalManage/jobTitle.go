@@ -29,7 +29,6 @@ func (j *JobTitleService) CreateJobTitle(req request.CreateJobTitle) error {
 	createinfo.Grade = req.Grade
 	createinfo.Note = req.Note
 	createinfo.Floorvalue = req.Floorvalue
-	createinfo.Ceilingvalue = req.Ceilingvalue
 	createinfo.IndicatValue = req.IndicatValue
 	createinfo.Category = req.Category
 	result1 := global.GVA_DB.Table("hospital_performance_called").Create(&createinfo)

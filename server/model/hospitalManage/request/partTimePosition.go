@@ -12,8 +12,17 @@ type DeleteItem struct {
 	PositionId int `form:"positionId"`
 }
 type CreateJob struct {
-	UserId       int            `json:"userId"`
-	CreateObject BasicJobStruct `json:"createObject"`
+	EmployeeId        int    `json:"employeeId"`
+	Name              string `json:"name"`
+	NoOfEmployee      int    `json:"noOfEmployee"`
+	NoOfRecruitment   int    `json:"noOfRecruitment"`
+	NoOfHiredEmployee int    `json:"noOfHiredEmployee"`
+	UserId            int    `json:"userId"`
+	Active            bool   `json:"active"`
+	NaturePost        string `json:"naturePost"`
+	CategoryPost      string `json:"categoryPost"`
+	JobCode           string `json:"jobCode"`
+	Show              string `json:"show"`
 }
 type BasicJobStruct struct {
 	MessageMainAttachmentId int    `json:"messageMainAttachmentId" gorm:"column:message_main_attachment_id"`

@@ -70,10 +70,10 @@ func (p *PartTimePositionService) GetJobList(req request2.PageInfo) (error, inte
 }
 func (p *PartTimePositionService) CreateJob(req request.CreateJob) error {
 	var modelInfo = hospitalManage.HrJob{}
-	err := privateUtils.MapFields(req.CreateObject, modelInfo)
-	if err != nil {
-		fmt.Printf("%v", err)
-	}
+	//err := privateUtils.MapFields(req.CreateObject, modelInfo)
+	//if err != nil {
+	//	fmt.Printf("%v", err)
+	//}
 	fmt.Println(modelInfo)
 	modelInfo.CreateDate = time.Now()
 	modelInfo.WriteDate = time.Now()
