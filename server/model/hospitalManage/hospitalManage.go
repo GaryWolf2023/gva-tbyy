@@ -280,7 +280,7 @@ type HrJob struct {
 	CreateDate              time.Time `json:"createDate" gorm:"column:create_date"`
 	WriteDate               time.Time `json:"writeDate" gorm:"column:write_date"`
 	CreateUid               int       `json:"createUid" gorm:"column:create_uid;foreignKey:CreateUid"`
-	WriteUid                int       `json:"writeUid" gorm:"column:update_uid;foreignKey:WriteUid"`
+	WriteUid                int       `json:"writeUid" gorm:"column:write_uid;foreignKey:WriteUid"`
 	MessageMainAttachmentId int       `json:"messageMainAttachmentId" gorm:"column:message_main_attachment_id"`
 	Sequence                int       `json:"sequence" gorm:"column:sequence"`
 	ExpectedEmployees       int       `json:"expectedEmployees" gorm:"column:expected_employees"`

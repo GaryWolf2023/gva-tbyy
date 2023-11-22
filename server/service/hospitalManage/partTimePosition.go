@@ -1,6 +1,7 @@
 package hospitalManage
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	request2 "github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
@@ -68,24 +69,37 @@ func (p *PartTimePositionService) GetJobList(req request2.PageInfo) (error, inte
 	res.Total = total
 	return nil, res
 }
+
+// 创建
 func (p *PartTimePositionService) CreateJob(req request.CreateJob) error {
-	var modelInfo = hospitalManage.HrJob{}
-	//err := privateUtils.MapFields(req.CreateObject, modelInfo)
-	//if err != nil {
-	//	fmt.Printf("%v", err)
-	//}
-	fmt.Println(modelInfo)
+	var modelInfo hospitalManage.HrJob
+	fmt.Println(req)
 	modelInfo.CreateDate = time.Now()
 	modelInfo.WriteDate = time.Now()
-	modelInfo.CreateUid = req.UserId
-	modelInfo.WriteUid = req.UserId
-	fmt.Println(modelInfo)
-	//result := global.GVA_DB.Table("hr_job").Create(&modelInfo)
-	//if result.Error != nil {
-	//	return result.Error
-	//}
+	modelInfo.CreateUid = req.EmployeeId
+	modelInfo.WriteUid = req.EmployeeId
+	dataName := map[string]string{
+		"en_US": req.Name,
+		"zh_CN": req.Name,
+	}
+	jsonData, _ := json.Marshal(dataName)
+	modelInfo.Name = string(jsonData)
+	modelInfo.DepartmentId = req.DepartmentId
+	modelInfo.NoOfEmployee = req.NoOfEmployee
+	modelInfo.NoOfRecruitment = req.NoOfRecruitment
+	modelInfo.UserId = req.UserId
+	modelInfo.Active = req.Active
+	modelInfo.NaturePost = req.NaturePost
+	modelInfo.CategoryPost = req.CategoryPost
+	modelInfo.JobCode = req.JobCode
+	modelInfo.Show = req.Show
+	result := global.GVA_DB.Table("hr_job").Create(&modelInfo)
+	if result.Error != nil {
+		return result.Error
+	}
 	return nil
 }
+
 func (p *PartTimePositionService) UpdateJob(req request.UpdateJob) error {
 	var modelInfo = hospitalManage.HrJob{}
 	err := privateUtils.MapFields(req.UpdateObject, modelInfo)
@@ -96,12 +110,9 @@ func (p *PartTimePositionService) UpdateJob(req request.UpdateJob) error {
 	modelInfo.WriteDate = time.Now()
 	modelInfo.WriteUid = req.UserId
 	fmt.Println(modelInfo)
-	//result := global.GVA_DB.Table("hr_job").Create(&modelInfo)
-	//if result.Error != nil {
-	//	return result.Error
-	//}
 	return nil
 }
+
 func (p *PartTimePositionService) DeleteJob(req request.DeleteJob) error {
 	var info interface{}
 	result := global.GVA_DB.Table("hr_job").Where("id = ?", req.ID).First(&info).Unscoped().Delete(&info)

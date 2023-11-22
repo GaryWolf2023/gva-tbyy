@@ -19,7 +19,8 @@
                 </el-table-column>
                 <el-table-column prop="baseNum" width="160px" label="所属部门" align="center" />
                 <el-table-column prop="noOfRecruitment" label="招聘员工目标" align="center" />
-                <el-table-column prop="noOfEmployee" label="现有员工数量" align="center" />
+                <el-table-column prop="noOfEmployee" label="预期招聘目标" align="center" />
+                <el-table-column prop="noOfHiredEmployee" label="现有员工数量" align="center" />
                 <el-table-column prop="userId" label="招聘人员" align="center" />
                 <el-table-column prop="jobCode" label="岗位代码" align="center" />
                 <el-table-column prop="categoryPost" label="岗位类别" align="center" />
@@ -50,7 +51,7 @@
           @open="opendialog"
         >
         <div class="insurance-list">
-            <el-form :model="form" label-width="120px">
+            <el-form :model="formData" label-width="120px">
                 <el-row>
                     <el-col :span="24">
                         <el-form-item label="岗位名称">
@@ -60,27 +61,22 @@
                     <br/>
                     <el-col :span="12">
                         <el-form-item label="部门">
-                            <el-input v-model="formData.departmentId" />
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="应用">
-                            <el-input v-model="formData.ApplicationCount" />
+                            <el-input v-model.number="formData.departmentId" />
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="目标员工数量">
-                              <el-input v-model="formData.noOfRecruitment" type="number" />
+                              <el-input v-model.number="formData.noOfRecruitment" type="number" />
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="现有员工数量">
-                            <el-input v-model="formData.noOfEmployee" type="number" />
+                        <el-form-item label="预期招聘数量">
+                            <el-input v-model.number="formData.noOfEmployee" type="number" />
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="招聘人员">
-                            <el-input v-model="formData.userId" />
+                            <el-input v-model.number="formData.userId" />
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
@@ -91,17 +87,17 @@
                     <el-col :span="12">
                         <el-form-item label="岗位性质">
                             <el-select v-model="formData.naturePost">
-                                <el-option>{{ '专职' }}</el-option>
-                                <el-option>{{ '全职' }}</el-option>
-                                <el-option>{{ '兼职' }}</el-option>
-                                <el-option>{{ '院外聘请' }}</el-option>
+                                <el-option value="专职">{{ '专职' }}</el-option>
+                                <el-option value="全职">{{ '全职' }}</el-option>
+                                <el-option value="兼职">{{ '兼职' }}</el-option>
+                                <el-option value="院外聘请">{{ '院外聘请' }}</el-option>
                             </el-select>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
                         <el-form-item label="岗位类别">
                             <el-select v-model="formData.categoryPost">
-                                <el-option>{{ '管理' }}</el-option>
+                                <el-option value="管理">{{ '管理' }}</el-option>
                             </el-select>
                         </el-form-item>
                     </el-col>
@@ -138,6 +134,11 @@ import ManageTemplate from '@/components/manageTemplate/index.vue'
 import { getJobList, createJob, updateJob, deleteJob } from '@/api/partTimePosition.js'
 import { ElMessage } from 'element-plus';
 import { Edit, CloseBold } from '@element-plus/icons-vue'
+import { useUserStore } from '@/pinia/modules/user'
+import { storeToRefs  } from 'pinia'
+
+const userStroe = useUserStore()
+const userInfo = storeToRefs(userStroe).userInfo
 
 onMounted(() => {
     getOptionsList()
@@ -146,14 +147,36 @@ onMounted(() => {
 const total = ref(0)
 const dialogVisible = ref(false)
 const typeOfDialog = ref('')
-const formData = ref({})
+const formData = reactive({
+    name: '',
+    departmentId: 0,
+    applicationCount: 0,
+    noOfRecruitment: 0,
+    noOfEmployee: 0,
+    userId: 0,
+    jobCode: '',
+    naturePost: '',
+    categoryPost: '',
+    show: '',
+    active: true
+})
 const tableData = ref([])
 
 const getOptionsList = () => {
 
 }
+
 const clearForm = () => {
-    formData.value = {}
+        formData.name= ''
+        formData.departmentId= 0
+        formData.noOfRecruitment= 0
+        formData.noOfEmployee= 0
+        formData.userId= 0
+        formData.jobCode= ''
+        formData.naturePost= ''
+        formData.categoryPost= ''
+        formData.show= ''
+        formData.active = true
 }
 const getListFunc = (obj) => {
     console.log(obj);
@@ -180,7 +203,10 @@ const createButtonFunc = () => {
 }
 const editFunc = (val) => {
     typeOfDialog.value = 'edit'
-    formData.value = val
+    formData = val
+    for (const key in formData) {
+        formData[key] = val[key]
+    }
     dialogVisible.value = true
 }
 const confirmUpload = () => {
@@ -191,7 +217,15 @@ const confirmUpload = () => {
     }
 }
 const createJobFunc = () => {
-    createJob({ ...formData.value }).then(res => {
+    console.log(userInfo.value);
+    console.log({
+        employeeId: userInfo.value.employee_id,
+        ...formData
+    });
+    createJob({
+        employeeId: Number(userInfo.value.employee_id),
+        ...formData
+    }).then(res => {
         if (res.code === 0) {
             ElMessage.success(res.msg)
         } else {
@@ -200,7 +234,10 @@ const createJobFunc = () => {
     })
 }
 const updateJobFunc = () => {
-    updateJob({ ...formData.value }).then(res => {
+    updateJob({
+        employeeId: Number(userInfo.employee_id),
+        ...formData
+    }).then(res => {
         if (res.code === 0) {
             ElMessage.success(res.msg)
         } else {
@@ -218,7 +255,17 @@ const deleteJobFunc = (id) => {
     })
 }
 const cancleUpload = () => {
-    formData.value = {}
+    formData.name= ''
+    formData.departmentId= null
+    formData.applicationCount= null
+    formData.noOfRecruitment= null
+    formData.noOfEmployee= null
+    formData.userId= null
+    formData.jobCode= ''
+    formData.naturePost= ''
+    formData.categoryPost= ''
+    formData.show= ''
+    formData.active = true
     dialogVisible.value = false
 }
 </script>

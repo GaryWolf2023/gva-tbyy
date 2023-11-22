@@ -75,7 +75,7 @@ func (baseMenuService *BaseMenuService) UpdateBaseMenu(menu system.SysBaseMenu) 
 		if txErr != nil {
 			global.GVA_LOG.Debug(txErr.Error())
 			return txErr
-		}g
+		}
 		txErr = tx.Unscoped().Delete(&system.SysBaseMenuBtn{}, "sys_base_menu_id = ?", menu.ID).Error
 		if txErr != nil {
 			global.GVA_LOG.Debug(txErr.Error())
