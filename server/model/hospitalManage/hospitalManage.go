@@ -124,90 +124,90 @@ type ResPartner struct {
 	ID                      int       `json:"id" gorm:"column:id"`
 	CreateDate              time.Time `json:"createDate" gorm:"column:create_date"`
 	WriteDate               time.Time `json:"writeDate" gorm:"column:write_date"`
-	CreateUid               int       `json:"createUid" gorm:"create_uid"`
-	WriteUid                int       `json:"writeUid" gorm:"update_uid"`
-	CompanyId               int       `json:"companyId" gorm:"company_id"`
-	Name                    string    `json:"name" gorm:"name"`
-	Title                   int       `json:"title" gorm:"title"`
-	ParentId                int       `json:"parentId" gorm:"parent_id"`
-	UserId                  int       `json:"userId" gorm:"user_id"`
-	StateId                 int       `json:"stateId" gorm:"state_id"`
-	CountryId               int       `json:"countryId" gorm:"country_id"`
-	IndustryId              int       `json:"industryId" gorm:"industry_id"`
-	Color                   int       `json:"color" gorm:"color"`
-	CommercialPartnerId     int       `json:"commercialPartnerId" gorm:"commercial_partner_id"`
-	DisplayName             string    `json:"displayName" gorm:"display_name"`
-	Ref                     string    `json:"ref" gorm:"ref"`
-	Lang                    string    `json:"lang" gorm:"lang"`
-	Tz                      string    `json:"tz" gorm:"tz"`
-	Vat                     string    `json:"vat" gorm:"vat"`
-	CompanyRegistry         string    `json:"companyRegistry" gorm:"company_registry"`
-	Website                 string    `json:"website" gorm:"website"`
-	Function                string    `json:"function" gorm:"function"`
-	Type                    string    `json:"type" gorm:"type"`
-	Street                  string    `json:"street" gorm:"street"`
-	Street2                 string    `json:"street2" gorm:"street2"`
-	Zip                     string    `json:"zip" gorm:"zip"`
-	City                    string    `json:"city" gorm:"city"`
-	Email                   string    `json:"email" gorm:"email"`
-	Phone                   string    `json:"phone" gorm:"phone"`
-	Mobile                  string    `json:"mobile" gorm:"mobile"`
-	CommercialCompanyName   string    `json:"commercialCompanyName" gorm:"commercial_company_name"`
-	CompanyName             string    `json:"companyName" gorm:"company_name"`
-	Date                    time.Time `json:"date" gorm:"date"`
-	Comment                 string    `json:"comment" gorm:"comment"`
-	PartnerLatitude         float64   `json:"partnerLatitude" gorm:"partner_latitude"`
-	PartnerLongitude        float64   `json:"partnerLongitude" gorm:"partner_longitude"`
-	Active                  bool      `json:"active" gorm:"active"`
-	Employee                bool      `json:"employee" gorm:"employee"`
-	IsCompany               bool      `json:"isCompany" gorm:"is_company"`
-	PartnerShare            bool      `json:"partnerShare" gorm:"partner_share"`
-	MessageMainAttachmentId int       `json:"messageMainAttachmentId" gorm:"message_main_attachment_id"`
-	MessageBounce           int       `json:"messageBounce" gorm:"message_bounce"`
-	EmailNormalized         string    `json:"emailNormalized" gorm:"email_normalized"`
-	SignupToken             string    `json:"signupToken" gorm:"signup_token"`
-	SignupType              string    `json:"signupType" gorm:"signup_type"`
-	SignupExpiration        time.Time `json:"signupExpiration" gorm:"signup_expiration"`
-	CalendarLastNotifAck    time.Time `json:"calendarLastNotifAck" gorm:"calendar_last_notif_ack"`
-	PartnerGid              int       `json:"partnerGid" gorm:"partner_gid"`
-	AdditionalInfo          string    `json:"additionalInfo" gorm:"additional_info"`
-	PhoneSanitized          string    `json:"phoneSanitized" gorm:"phone_sanitized"`
-	SupplierRank            int       `json:"supplierRank" gorm:"supplier_rank"`
-	CustomerRank            int       `json:"customerRank" gorm:"customer_rank"`
-	InvoiceWarn             string    `json:"invoiceWarn" gorm:"invoice_warn"`
-	InvoiceWarnMsg          string    `json:"invoiceWarnMsg" gorm:"invoice_warn_msg"`
-	DebitLimit              float64   `json:"debitLimit" gorm:"debit_limit"`
-	LastTimeEntriesChecked  time.Time `json:"lastTimeEntriesChecked" gorm:"last_time_entries_checked"`
-	TeamId                  int       `json:"teamId" gorm:"team_id"`
-	PickingWarn             string    `json:"pickingWarn" gorm:"picking_warn"`
-	PickingWarnMsg          string    `json:"pickingWarnMsg" gorm:"picking_warn_msg"`
-	SaleWarn                string    `json:"saleWarn" gorm:"sale_warn"`
-	SaleWarnMsg             string    `json:"saleWarnMsg" gorm:"sale_warn_msg"`
-	PurchaseWarn            string    `json:"purchaseWarn" gorm:"purchase_warn"`
-	PurchaseWarnMsg         string    `json:"purchaseWarnMsg" gorm:"purchase_warn_msg"`
-	CityId                  int       `json:"cityId" gorm:"city_id"`
-	AreaId                  int       `json:"areaId" gorm:"area_id"`
-	Town                    string    `json:"town" gorm:"town"`
-	Village                 string    `json:"village" gorm:"village"`
-	HouseNumber             string    `json:"houseNumber" gorm:"house_number"`
+	CreateUid               int       `json:"createUid" gorm:"column:create_uid"`
+	WriteUid                int       `json:"writeUid" gorm:"column:update_uid"`
+	CompanyId               int       `json:"companyId" gorm:"column:company_id"`
+	Name                    string    `json:"name" gorm:"column:name"`
+	Title                   int       `json:"title" gorm:"column:title"`
+	ParentId                int       `json:"parentId" gorm:"column:parent_id"`
+	UserId                  int       `json:"userId" gorm:"column:user_id"`
+	StateId                 int       `json:"stateId" gorm:"column:state_id"`
+	CountryId               int       `json:"countryId" gorm:"column:country_id"`
+	IndustryId              int       `json:"industryId" gorm:"column:industry_id"`
+	Color                   int       `json:"color" gorm:"column:color"`
+	CommercialPartnerId     int       `json:"commercialPartnerId" gorm:"column:commercial_partner_id"`
+	DisplayName             string    `json:"displayName" gorm:"column:display_name"`
+	Ref                     string    `json:"ref" gorm:"column:ref"`
+	Lang                    string    `json:"lang" gorm:"column:lang"`
+	Tz                      string    `json:"tz" gorm:"column:tz"`
+	Vat                     string    `json:"vat" gorm:"column:vat"`
+	CompanyRegistry         string    `json:"companyRegistry" gorm:"column:company_registry"`
+	Website                 string    `json:"website" gorm:"column:website"`
+	Function                string    `json:"function" gorm:"column:function"`
+	Type                    string    `json:"type" gorm:"column:type"`
+	Street                  string    `json:"street" gorm:"column:street"`
+	Street2                 string    `json:"street2" gorm:"column:street2"`
+	Zip                     string    `json:"zip" gorm:"column:zip"`
+	City                    string    `json:"city" gorm:"column:city"`
+	Email                   string    `json:"email" gorm:"column:email"`
+	Phone                   string    `json:"phone" gorm:"column:phone"`
+	Mobile                  string    `json:"mobile" gorm:"column:mobile"`
+	CommercialCompanyName   string    `json:"commercialCompanyName" gorm:"column:commercial_company_name"`
+	CompanyName             string    `json:"companyName" gorm:"column:company_name"`
+	Date                    time.Time `json:"date" gorm:"column:date"`
+	Comment                 string    `json:"comment" gorm:"column:comment"`
+	PartnerLatitude         float64   `json:"partnerLatitude" gorm:"column:partner_latitude"`
+	PartnerLongitude        float64   `json:"partnerLongitude" gorm:"column:partner_longitude"`
+	Active                  bool      `json:"active" gorm:"column:active"`
+	Employee                bool      `json:"employee" gorm:"column:employee"`
+	IsCompany               bool      `json:"isCompany" gorm:"column:is_company"`
+	PartnerShare            bool      `json:"partnerShare" gorm:"column:partner_share"`
+	MessageMainAttachmentId int       `json:"messageMainAttachmentId" gorm:"column:message_main_attachment_id"`
+	MessageBounce           int       `json:"messageBounce" gorm:"column:message_bounce"`
+	EmailNormalized         string    `json:"emailNormalized" gorm:"column:email_normalized"`
+	SignupToken             string    `json:"signupToken" gorm:"column:signup_token"`
+	SignupType              string    `json:"signupType" gorm:"column:signup_type"`
+	SignupExpiration        time.Time `json:"signupExpiration" gorm:"column:signup_expiration"`
+	CalendarLastNotifAck    time.Time `json:"calendarLastNotifAck" gorm:"column:calendar_last_notif_ack"`
+	PartnerGid              int       `json:"partnerGid" gorm:"column:partner_gid"`
+	AdditionalInfo          string    `json:"additionalInfo" gorm:"column:additional_info"`
+	PhoneSanitized          string    `json:"phoneSanitized" gorm:"column:phone_sanitized"`
+	SupplierRank            int       `json:"supplierRank" gorm:"column:supplier_rank"`
+	CustomerRank            int       `json:"customerRank" gorm:"column:customer_rank"`
+	InvoiceWarn             string    `json:"invoiceWarn" gorm:"column:invoice_warn"`
+	InvoiceWarnMsg          string    `json:"invoiceWarnMsg" gorm:"column:invoice_warn_msg"`
+	DebitLimit              float64   `json:"debitLimit" gorm:"column:debit_limit"`
+	LastTimeEntriesChecked  time.Time `json:"lastTimeEntriesChecked" gorm:"column:last_time_entries_checked"`
+	TeamId                  int       `json:"teamId" gorm:"column:team_id"`
+	PickingWarn             string    `json:"pickingWarn" gorm:"column:picking_warn"`
+	PickingWarnMsg          string    `json:"pickingWarnMsg" gorm:"column:picking_warn_msg"`
+	SaleWarn                string    `json:"saleWarn" gorm:"column:sale_warn"`
+	SaleWarnMsg             string    `json:"saleWarnMsg" gorm:"column:sale_warn_msg"`
+	PurchaseWarn            string    `json:"purchaseWarn" gorm:"column:purchase_warn"`
+	PurchaseWarnMsg         string    `json:"purchaseWarnMsg" gorm:"column:purchase_warn_msg"`
+	CityId                  int       `json:"cityId" gorm:"column:city_id"`
+	AreaId                  int       `json:"areaId" gorm:"column:area_id"`
+	Town                    string    `json:"town" gorm:"column:town"`
+	Village                 string    `json:"village" gorm:"column:village"`
+	HouseNumber             string    `json:"houseNumber" gorm:"column:house_number"`
 }
 type ResPartnerBank struct {
 	ID                      int       `json:"id" gorm:"column:id"`
 	CreateDate              time.Time `json:"createDate" gorm:"column:create_date"`
 	WriteDate               time.Time `json:"writeDate" gorm:"column:write_date"`
-	CreateUid               int       `json:"createUid" gorm:"create_uid"`
-	WriteUid                int       `json:"writeUid" gorm:"update_uid"`
-	PartnerId               int       `json:"partnerId" gorm:"partner_id"`
-	BankId                  int       `json:"bankId" gorm:"bank_id"`
-	Sequence                int       `json:"sequence" gorm:"sequence"`
-	CurrencyId              int       `json:"currencyId" gorm:"currency_id"`
-	CompanyId               int       `json:"companyId" gorm:"company_id"`
-	AccNumber               string    `json:"accNumber" gorm:"acc_number"`
-	SanitizedAccNumber      string    `json:"sanitizedAccNumber" gorm:"sanitized_acc_number"`
-	AccHolderName           string    `json:"accHolderName" gorm:"acc_holder_name"`
-	Active                  bool      `json:"active" gorm:"active"`
-	AllowOutPayment         bool      `json:"allowOutPayment" gorm:"allow_out_payment"`
-	MessageMainAttachmentId int       `json:"messageMainAttachmentId" gorm:"message_main_attachment_id"`
+	CreateUid               int       `json:"createUid" gorm:"column:create_uid"`
+	WriteUid                int       `json:"writeUid" gorm:"column:update_uid"`
+	PartnerId               int       `json:"partnerId" gorm:"column:partner_id"`
+	BankId                  int       `json:"bankId" gorm:"column:bank_id"`
+	Sequence                int       `json:"sequence" gorm:"column:sequence"`
+	CurrencyId              int       `json:"currencyId" gorm:"column:currency_id"`
+	CompanyId               int       `json:"companyId" gorm:"column:company_id"`
+	AccNumber               string    `json:"accNumber" gorm:"column:acc_number"`
+	SanitizedAccNumber      string    `json:"sanitizedAccNumber" gorm:"column:sanitized_acc_number"`
+	AccHolderName           string    `json:"accHolderName" gorm:"column:acc_holder_name"`
+	Active                  bool      `json:"active" gorm:"column:active"`
+	AllowOutPayment         bool      `json:"allowOutPayment" gorm:"column:allow_out_payment"`
+	MessageMainAttachmentId int       `json:"messageMainAttachmentId" gorm:"column:message_main_attachment_id"`
 }
 type ResUsers struct{}
 type ResCountry struct{}
@@ -220,60 +220,60 @@ type HrContract struct {
 	ID                      int       `json:"id" gorm:"column:id"`
 	CreateDate              time.Time `json:"createDate" gorm:"column:create_date"`
 	WriteDate               time.Time `json:"writeDate" gorm:"column:write_date"`
-	CreateUid               int       `json:"createUid" gorm:"create_uid"`
-	WriteUid                int       `json:"writeUid" gorm:"update_uid"`
-	MessageMainAttachmentId int       `json:"messageMainAttachmentId" gorm:"message_main_attachment_id"`
-	StructureTypeId         int       `json:"structureTypeId" gorm:"structure_type_id"`
-	EmployeeId              int       `json:"employeeId" gorm:"employee_id"`
-	DepartmentId            int       `json:"departmentId" gorm:"department_id"`
-	JobId                   int       `json:"jobId" gorm:"job_id"`
-	ResourceCalendarId      int       `json:"resourceCalendarId" gorm:"resource_calendar_id"`
-	CompanyId               int       `json:"companyId" gorm:"company_id"`
-	ContractTypeId          int       `json:"contractTypeId" gorm:"contract_type_id"`
-	HrResponsibleId         int       `json:"hrResponsibleId" gorm:"hr_responsible_id"`
-	Name                    string    `json:"name" gorm:"name"`
-	State                   string    `json:"state" gorm:"state"`
-	KanbanState             string    `json:"kanbanState" gorm:"kanban_state"`
-	DateStart               time.Time `json:"dateStart" gorm:"date_start"`
-	DateEnd                 time.Time `json:"dateEnd" gorm:"date_end"`
-	TrialDateEnd            time.Time `json:"trialDateEnd" gorm:"trial_date_end"`
-	Notes                   string    `json:"notes" gorm:"notes"`
-	Wage                    float64   `json:"wage" gorm:"wage"`
-	Active                  bool      `json:"active" gorm:"active"`
-	TypeId                  int       `json:"typeId" gorm:"type_id"`
-	NoticeDays              int       `json:"noticeDays" gorm:"notice_days"`
-	StructId                int       `json:"structId" gorm:"struct_id"`
-	SchedulePay             string    `json:"schedulePay" gorm:"schedule_pay"`
-	Hra                     float64   `json:"hra" gorm:"hra"`
-	TravelAllowance         float64   `json:"travelAllowance" gorm:"travel_allowance"`
-	Da                      float64   `json:"da" gorm:"da"`
-	MealAllowance           float64   `json:"mealAllowance" gorm:"meal_allowance"`
-	MedicalAllowance        float64   `json:"medicalAllowance" gorm:"medical_allowance"`
-	OtherAllowance          float64   `json:"otherAllowance" gorm:"other_allowance"`
-	AnalyticAccountId       int       `json:"analyticAccountId" gorm:"analytic_account_id"`
-	JournalId               int       `json:"journalId" gorm:"journal_id"`
-	OverHour                float64   `json:"overHour" gorm:"over_hour"`
-	OverDay                 float64   `json:"overDay" gorm:"over_day"`
-	WorkingHours            int       `json:"workingHours" gorm:"working_hours"`
+	CreateUid               int       `json:"createUid" gorm:"column:create_uid"`
+	WriteUid                int       `json:"writeUid" gorm:"column:update_uid"`
+	MessageMainAttachmentId int       `json:"messageMainAttachmentId" gorm:"column:message_main_attachment_id"`
+	StructureTypeId         int       `json:"structureTypeId" gorm:"column:structure_type_id"`
+	EmployeeId              int       `json:"employeeId" gorm:"column:employee_id"`
+	DepartmentId            int       `json:"departmentId" gorm:"column:department_id"`
+	JobId                   int       `json:"jobId" gorm:"column:job_id"`
+	ResourceCalendarId      int       `json:"resourceCalendarId" gorm:"column:resource_calendar_id"`
+	CompanyId               int       `json:"companyId" gorm:"column:company_id"`
+	ContractTypeId          int       `json:"contractTypeId" gorm:"column:contract_type_id"`
+	HrResponsibleId         int       `json:"hrResponsibleId" gorm:"column:hr_responsible_id"`
+	Name                    string    `json:"name" gorm:"column:name"`
+	State                   string    `json:"state" gorm:"column:state"`
+	KanbanState             string    `json:"kanbanState" gorm:"column:kanban_state"`
+	DateStart               time.Time `json:"dateStart" gorm:"column:date_start"`
+	DateEnd                 time.Time `json:"dateEnd" gorm:"column:date_end"`
+	TrialDateEnd            time.Time `json:"trialDateEnd" gorm:"column:trial_date_end"`
+	Notes                   string    `json:"notes" gorm:"column:notes"`
+	Wage                    float64   `json:"wage" gorm:"column:wage"`
+	Active                  bool      `json:"active" gorm:"column:active"`
+	TypeId                  int       `json:"typeId" gorm:"column:type_id"`
+	NoticeDays              int       `json:"noticeDays" gorm:"column:notice_days"`
+	StructId                int       `json:"structId" gorm:"column:struct_id"`
+	SchedulePay             string    `json:"schedulePay" gorm:"column:schedule_pay"`
+	Hra                     float64   `json:"hra" gorm:"column:hra"`
+	TravelAllowance         float64   `json:"travelAllowance" gorm:"column:travel_allowance"`
+	Da                      float64   `json:"da" gorm:"column:da"`
+	MealAllowance           float64   `json:"mealAllowance" gorm:"column:meal_allowance"`
+	MedicalAllowance        float64   `json:"medicalAllowance" gorm:"column:medical_allowance"`
+	OtherAllowance          float64   `json:"otherAllowance" gorm:"column:other_allowance"`
+	AnalyticAccountId       int       `json:"analyticAccountId" gorm:"column:analytic_account_id"`
+	JournalId               int       `json:"journalId" gorm:"column:journal_id"`
+	OverHour                float64   `json:"overHour" gorm:"column:over_hour"`
+	OverDay                 float64   `json:"overDay" gorm:"column:over_day"`
+	WorkingHours            int       `json:"workingHours" gorm:"column:working_hours"`
 }
 type HrDepartureReason struct {
 	ID         int               `json:"id" gorm:"column:id"`
 	CreateDate time.Time         `json:"createDate" gorm:"column:create_date"`
 	WriteDate  time.Time         `json:"writeDate" gorm:"column:write_date"`
-	Sequence   int               `json:"sequence" gorm:"sequence"`
-	CreateUid  int               `json:"createUid" gorm:"create_uid"`
-	WriteUid   int               `json:"writeUid" gorm:"update_uid"`
-	Name       pgtype.JSONBCodec `json:"name" gorm:"name"`
+	Sequence   int               `json:"sequence" gorm:"column:sequence"`
+	CreateUid  int               `json:"createUid" gorm:"column:create_uid"`
+	WriteUid   int               `json:"writeUid" gorm:"column:update_uid"`
+	Name       pgtype.JSONBCodec `json:"name" gorm:"column:name"`
 }
 type GradeGrade struct {
 	ID          int       `json:"id" gorm:"column:id"`
 	CreateDate  time.Time `json:"createDate" gorm:"column:create_date"`
 	WriteDate   time.Time `json:"writeDate" gorm:"column:write_date"`
-	CreateUid   int       `json:"createUid" gorm:"create_uid"`
-	WriteUid    int       `json:"writeUid" gorm:"update_uid"`
-	Name        string    `json:"name" gorm:"name"`
-	Description string    `json:"description" gorm:"description"`
-	Active      bool      `json:"active" gorm:"active"`
+	CreateUid   int       `json:"createUid" gorm:"column:create_uid"`
+	WriteUid    int       `json:"writeUid" gorm:"column:update_uid"`
+	Name        string    `json:"name" gorm:"column:name"`
+	Description string    `json:"description" gorm:"column:description"`
+	Active      bool      `json:"active" gorm:"column:active"`
 }
 type HrJob struct {
 	ID                      int       `json:"id" gorm:"column:id"`
@@ -309,155 +309,155 @@ type HrAttendance struct {
 	ID          int       `json:"id" gorm:"column:id"`
 	CreateDate  time.Time `json:"createDate" gorm:"column:create_date"`
 	WriteDate   time.Time `json:"writeDate" gorm:"column:write_date"`
-	EmployeeId  int       `json:"employeeId" gorm:"employee_id"`
-	CreateUid   int       `json:"createUid" gorm:"create_uid"`
-	WriteUid    int       `json:"writeUid" gorm:"update_uid"`
-	CheckIn     time.Time `json:"checkIn" gorm:"check_in"`
-	CheckOut    time.Time `json:"checkOut" gorm:"check_out"`
-	WorkedHours float64   `json:"workedHours" gorm:"worked_hours"`
-	CompanyId   int       `json:"companyId" gorm:"company_id"`
+	EmployeeId  int       `json:"employeeId" gorm:"column:employee_id"`
+	CreateUid   int       `json:"createUid" gorm:"column:create_uid"`
+	WriteUid    int       `json:"writeUid" gorm:"column:update_uid"`
+	CheckIn     time.Time `json:"checkIn" gorm:"column:check_in"`
+	CheckOut    time.Time `json:"checkOut" gorm:"column:check_out"`
+	WorkedHours float64   `json:"workedHours" gorm:"column:worked_hours"`
+	CompanyId   int       `json:"companyId" gorm:"column:company_id"`
 }
 type HrEmployeePractisingcert struct {
 	ID                 int       `json:"id" gorm:"column:id"`
 	CreateDate         time.Time `json:"createDate" gorm:"column:create_date"`
 	WriteDate          time.Time `json:"writeDate" gorm:"column:write_date"`
-	Employee           int       `json:"employee" gorm:"employee"`
-	CreateUid          int       `json:"createUid" gorm:"create_uid"`
-	WriteUid           int       `json:"writeUid" gorm:"update_uid"`
-	Code               string    `json:"code" gorm:"code"`
-	PractisingCateg    string    `json:"practisingCateg" gorm:"practising_categ"`
-	PractisingRange    string    `json:"practisingRange" gorm:"practising_range"`
-	PractisingLocation string    `json:"practisingLocation" gorm:"practising_location"`
-	RegisterDate       time.Time `json:"registerDate" gorm:"register_date"`
-	ApprovalEmployeeId int       `json:"approvalEmployeeId" gorm:"approval_employee_id"`
-	Approval           bool      `json:"approval" gorm:"approval"`
-	IsApproval         bool      `json:"isApproval" gorm:"is_approval"`
-	ApprovalTime       time.Time `json:"approvalTime" gorm:"approval_time"`
-	RevokeEmployeeId   int       `json:"revokeEmployeeId" gorm:"revoke_employee_id"`
-	RevokeReason       string    `json:"revokeReason" gorm:"revoke_reason"`
-	Revoke             bool      `json:"revoke" gorm:"revoke"`
-	RevokeTime         time.Time `json:"revokeTime" gorm:"revoke_time"`
+	Employee           int       `json:"employee" gorm:"column:employee"`
+	CreateUid          int       `json:"createUid" gorm:"column:create_uid"`
+	WriteUid           int       `json:"writeUid" gorm:"column:update_uid"`
+	Code               string    `json:"code" gorm:"column:code"`
+	PractisingCateg    string    `json:"practisingCateg" gorm:"column:practising_categ"`
+	PractisingRange    string    `json:"practisingRange" gorm:"column:practising_range"`
+	PractisingLocation string    `json:"practisingLocation" gorm:"column:practising_location"`
+	RegisterDate       time.Time `json:"registerDate" gorm:"column:register_date"`
+	ApprovalEmployeeId int       `json:"approvalEmployeeId" gorm:"column:approval_employee_id"`
+	Approval           bool      `json:"approval" gorm:"column:approval"`
+	IsApproval         bool      `json:"isApproval" gorm:"column:is_approval"`
+	ApprovalTime       time.Time `json:"approvalTime" gorm:"column:approval_time"`
+	RevokeEmployeeId   int       `json:"revokeEmployeeId" gorm:"column:revoke_employee_id"`
+	RevokeReason       string    `json:"revokeReason" gorm:"column:revoke_reason"`
+	Revoke             bool      `json:"revoke" gorm:"column:revoke"`
+	RevokeTime         time.Time `json:"revokeTime" gorm:"column:revoke_time"`
 }
 type HrEmployeeSpecialist struct {
 	ID         int       `json:"id" gorm:"column:id"`
 	CreateDate time.Time `json:"createDate" gorm:"column:create_date"`
 	WriteDate  time.Time `json:"writeDate" gorm:"column:write_date"`
-	CreateUid  int       `json:"createUid" gorm:"create_uid"`
-	WriteUid   int       `json:"writeUid" gorm:"update_uid"`
-	Name       string    `json:"name" gorm:"name"`
+	CreateUid  int       `json:"createUid" gorm:"column:create_uid"`
+	WriteUid   int       `json:"writeUid" gorm:"column:update_uid"`
+	Name       string    `json:"name" gorm:"column:name"`
 }
 type HrWorkLocation struct {
 	ID             int       `json:"id" gorm:"column:id"`
 	CreateDate     time.Time `json:"createDate" gorm:"column:create_date"`
 	WriteDate      time.Time `json:"writeDate" gorm:"column:write_date"`
-	CreateUid      int       `json:"createUid" gorm:"create_uid"`
-	WriteUid       int       `json:"writeUid" gorm:"update_uid"`
-	CompanyId      int       `json:"companyId" gorm:"company_id"`
-	AddressId      int       `json:"addressId" gorm:"address_id"`
-	Name           string    `json:"name" gorm:"name"`
-	LocationNumber string    `json:"locationNumber" gorm:"location_number"`
-	Active         bool      `json:"active" gorm:"active"`
+	CreateUid      int       `json:"createUid" gorm:"column:create_uid"`
+	WriteUid       int       `json:"writeUid" gorm:"column:update_uid"`
+	CompanyId      int       `json:"companyId" gorm:"column:company_id"`
+	AddressId      int       `json:"addressId" gorm:"column:address_id"`
+	Name           string    `json:"name" gorm:"column:name"`
+	LocationNumber string    `json:"locationNumber" gorm:"column:location_number"`
+	Active         bool      `json:"active" gorm:"column:active"`
 }
 type IrAttachment struct {
 	ID           int       `json:"id" gorm:"column:id"`
 	CreateDate   time.Time `json:"createDate" gorm:"column:create_date"`
 	WriteDate    time.Time `json:"writeDate" gorm:"column:write_date"`
-	CreateUid    int       `json:"createUid" gorm:"create_uid"`
-	WriteUid     int       `json:"writeUid" gorm:"update_uid"`
-	ResId        int       `json:"resId" gorm:"res_id"`
-	CompanyId    int       `json:"companyId" gorm:"company_id"`
-	FileSize     int       `json:"fileSize" gorm:"file_size"`
-	Name         string    `json:"name" gorm:"name"`
-	ResModel     string    `json:"resModel" gorm:"res_model"`
-	ResField     string    `json:"resField" gorm:"res_field"`
-	Type         string    `json:"type" gorm:"type"`
-	Url          string    `json:"url" gorm:"url"`
-	AccessToken  string    `json:"accessToken" gorm:"access_token"`
-	StoreFname   string    `json:"storeFname" gorm:"store_fname"`
-	Checksum     string    `json:"checksum" gorm:"checksum"`
-	Mimetype     string    `json:"mimetype" gorm:"mimetype"`
-	Description  string    `json:"description" gorm:"description"`
-	IndexContent string    `json:"indexContent" gorm:"index_content"`
-	Public       bool      `json:"public" gorm:"public"`
-	DbDatas      []byte    `json:"dbDatas" gorm:"db_dates"`
-	OriginalId   int       `json:"originalId" gorm:"original_id"`
-	S3flag       bool      `json:"s3Flag" gorm:"s3flag"`
+	CreateUid    int       `json:"createUid" gorm:"column:create_uid"`
+	WriteUid     int       `json:"writeUid" gorm:"column:update_uid"`
+	ResId        int       `json:"resId" gorm:"column:res_id"`
+	CompanyId    int       `json:"companyId" gorm:"column:company_id"`
+	FileSize     int       `json:"fileSize" gorm:"column:file_size"`
+	Name         string    `json:"name" gorm:"column:name"`
+	ResModel     string    `json:"resModel" gorm:"column:res_model"`
+	ResField     string    `json:"resField" gorm:"column:res_field"`
+	Type         string    `json:"type" gorm:"column:type"`
+	Url          string    `json:"url" gorm:"column:url"`
+	AccessToken  string    `json:"accessToken" gorm:"column:access_token"`
+	StoreFname   string    `json:"storeFname" gorm:"column:store_fname"`
+	Checksum     string    `json:"checksum" gorm:"column:checksum"`
+	Mimetype     string    `json:"mimetype" gorm:"column:mimetype"`
+	Description  string    `json:"description" gorm:"column:description"`
+	IndexContent string    `json:"indexContent" gorm:"column:index_content"`
+	Public       bool      `json:"public" gorm:"column:public"`
+	DbDatas      []byte    `json:"dbDatas" gorm:"column:db_dates"`
+	OriginalId   int       `json:"originalId" gorm:"column:original_id"`
+	S3flag       bool      `json:"s3Flag" gorm:"column:s3flag"`
 }
 type HrEmployeePrescription struct {
 	ID         int       `json:"id" gorm:"column:id"`
 	CreateDate time.Time `json:"createDate" gorm:"column:create_date"`
 	WriteDate  time.Time `json:"writeDate" gorm:"column:write_date"`
-	CreateUid  int       `json:"createUid" gorm:"create_uid"`
-	WriteUid   int       `json:"writeUid" gorm:"update_uid"`
-	Name       string    `json:"name" gorm:"name"`
-	Active     bool      `json:"active" gorm:"active"`
+	CreateUid  int       `json:"createUid" gorm:"column:create_uid"`
+	WriteUid   int       `json:"writeUid" gorm:"column:update_uid"`
+	Name       string    `json:"name" gorm:"column:name"`
+	Active     bool      `json:"active" gorm:"column:active"`
 }
 type HrEmployeeCategory struct {
 	ID         int       `json:"id" gorm:"column:id"`
 	CreateDate time.Time `json:"createDate" gorm:"column:create_date"`
 	WriteDate  time.Time `json:"writeDate" gorm:"column:write_date"`
-	CreateUid  int       `json:"createUid" gorm:"create_uid"`
-	WriteUid   int       `json:"writeUid" gorm:"update_uid"`
-	Color      int       `json:"color" gorm:"color"`
-	Name       string    `json:"name" gorm:"name"`
-	Active     bool      `json:"active" gorm:"active"`
+	CreateUid  int       `json:"createUid" gorm:"column:create_uid"`
+	WriteUid   int       `json:"writeUid" gorm:"column:update_uid"`
+	Color      int       `json:"color" gorm:"column:color"`
+	Name       string    `json:"name" gorm:"column:name"`
+	Active     bool      `json:"active" gorm:"column:active"`
 }
 type HrEmployeeDocument struct {
 	ID               int       `json:"id" gorm:"column:id"`
 	CreateDate       time.Time `json:"createDate" gorm:"column:create_date"`
 	WriteDate        time.Time `json:"writeDate" gorm:"column:write_date"`
-	EmployeeRef      int       `json:"employeeRef" gorm:"employee_ref"`
-	DocumentType     int       `json:"documentType" gorm:"document_type"`
-	BeforeDays       int       `json:"beforeDays" gorm:"before_days"`
-	CreateUid        int       `json:"createUid" gorm:"create_uid"`
-	WriteUid         int       `json:"writeUid" gorm:"update_uid"`
-	Name             string    `json:"name" gorm:"name"`
-	NotificationType string    `json:"notificationType" gorm:"notification_type"`
-	ExpiryDate       time.Time `json:"expiryDate" gorm:"expiry_date"`
-	IssueDate        time.Time `json:"issueDate" gorm:"issue_date"`
-	Description      string    `json:"description" gorm:"description"`
+	EmployeeRef      int       `json:"employeeRef" gorm:"column:employee_ref"`
+	DocumentType     int       `json:"documentType" gorm:"column:document_type"`
+	BeforeDays       int       `json:"beforeDays" gorm:"column:before_days"`
+	CreateUid        int       `json:"createUid" gorm:"column:create_uid"`
+	WriteUid         int       `json:"writeUid" gorm:"column:update_uid"`
+	Name             string    `json:"name" gorm:"column:name"`
+	NotificationType string    `json:"notificationType" gorm:"column:notification_type"`
+	ExpiryDate       time.Time `json:"expiryDate" gorm:"column:expiry_date"`
+	IssueDate        time.Time `json:"issueDate" gorm:"column:issue_date"`
+	Description      string    `json:"description" gorm:"column:description"`
 }
 type HrEmployeeFamily struct {
 	ID            int       `json:"id" gorm:"column:id"`
 	CreateDate    time.Time `json:"createDate" gorm:"column:create_date"`
 	WriteDate     time.Time `json:"writeDate" gorm:"column:write_date"`
-	CreateUid     int       `json:"createUid" gorm:"create_uid"`
-	WriteUid      int       `json:"writeUid" gorm:"update_uid"`
-	Job           string    `json:"job" gorm:"job"`
-	BrithDate     time.Time `json:"brithDate" gorm:"brith_date"`
-	RelationId    int       `json:"relationId" gorm:"relation_id"`
-	EmployeeId    int       `json:"employeeId" gorm:"employee_id"`
-	MemberContact string    `json:"memberContact" gorm:"member_contact"`
-	MemberName    string    `json:"memberName" gorm:"member_name"`
+	CreateUid     int       `json:"createUid" gorm:"column:create_uid"`
+	WriteUid      int       `json:"writeUid" gorm:"column:update_uid"`
+	Job           string    `json:"job" gorm:"column:job"`
+	BrithDate     time.Time `json:"brithDate" gorm:"column:brith_date"`
+	RelationId    int       `json:"relationId" gorm:"column:relation_id"`
+	EmployeeId    int       `json:"employeeId" gorm:"column:employee_id"`
+	MemberContact string    `json:"memberContact" gorm:"column:member_contact"`
+	MemberName    string    `json:"memberName" gorm:"column:member_name"`
 }
 type HrAnnouncement struct {
 	ID                      int       `json:"id" gorm:"column:id"`
 	CreateDate              time.Time `json:"createDate" gorm:"column:create_date"`
 	WriteDate               time.Time `json:"writeDate" gorm:"column:write_date"`
-	CreateUid               int       `json:"createUid" gorm:"create_uid"`
-	WriteUid                int       `json:"writeUid" gorm:"update_uid"`
-	MessageMainAttachmentId int       `json:"messageMainAttachmentId" gorm:"message_main_attachment_id"`
-	CompanyId               int       `json:"companyId" gorm:"company_id"`
-	Name                    string    `json:"name" gorm:"name"`
-	State                   string    `json:"state" gorm:"state"`
-	AnnouncementType        string    `json:"announcementType" gorm:"announcement_type"`
-	RequestedDate           time.Time `json:"requestedDate" gorm:"requested_date"`
-	DateStart               time.Time `json:"dateStart" gorm:"date_start"`
-	DateEnd                 time.Time `json:"dateEnd" gorm:"date_end"`
-	AnnouncementReason      string    `json:"announcementReason" gorm:"announcement_reason"`
-	Announcement            string    `json:"announcement" gorm:"announcement"`
-	IsAnnouncement          bool      `json:"isAnnouncement" gorm:"is_announcement"`
+	CreateUid               int       `json:"createUid" gorm:"column:create_uid"`
+	WriteUid                int       `json:"writeUid" gorm:"column:update_uid"`
+	MessageMainAttachmentId int       `json:"messageMainAttachmentId" gorm:"column:message_main_attachment_id"`
+	CompanyId               int       `json:"companyId" gorm:"column:company_id"`
+	Name                    string    `json:"name" gorm:"column:name"`
+	State                   string    `json:"state" gorm:"column:state"`
+	AnnouncementType        string    `json:"announcementType" gorm:"column:announcement_type"`
+	RequestedDate           time.Time `json:"requestedDate" gorm:"column:requested_date"`
+	DateStart               time.Time `json:"dateStart" gorm:"column:date_start"`
+	DateEnd                 time.Time `json:"dateEnd" gorm:"column:date_end"`
+	AnnouncementReason      string    `json:"announcementReason" gorm:"column:announcement_reason"`
+	Announcement            string    `json:"announcement" gorm:"column:announcement"`
+	IsAnnouncement          bool      `json:"isAnnouncement" gorm:"column:is_announcement"`
 }
 
 type HrApplicant struct {
 	ID         int       `json:"id" gorm:"column:id"`
 	CreateDate time.Time `json:"createDate" gorm:"column:create_date"`
 	WriteDate  time.Time `json:"writeDate" gorm:"column:write_date"`
-	CreateUid  int       `json:"createUid" gorm:"create_uid"`
-	WriteUid   int       `json:"writeUid" gorm:"update_uid"`
-	CampaignId int       `json:"campaignId" gorm:"campaign_id"`
-	SourceId   int       `json:"sourceId" gorm:"source_id"`
-	MediumId   int       `json:"mediumId" gorm:"medium_id"`
+	CreateUid  int       `json:"createUid" gorm:"column:create_uid"`
+	WriteUid   int       `json:"writeUid" gorm:"column:update_uid"`
+	CampaignId int       `json:"campaignId" gorm:"column:campaign_id"`
+	SourceId   int       `json:"sourceId" gorm:"column:source_id"`
+	MediumId   int       `json:"mediumId" gorm:"column:medium_id"`
 }
 
 func (h *HrEmployee) Table() string {

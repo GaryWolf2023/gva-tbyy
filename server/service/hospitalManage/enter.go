@@ -9,4 +9,5 @@ type ServiceGroup struct {
 	PartTimePositionService
 	DepartmentManageService
 	CompanyManageService
+	AddressManageService
 }

@@ -118,6 +118,29 @@ type StaffInfo struct {
 	GraduationDate              time.Time `json:"graduationDate"`
 }
 
+// CreateStaff 只是创建一个人的基础信息
+type CreateStaff struct {
+	EmployeeId int `json:"employeeId"`
+	UserInfo   map[string]interface{}
+	//Name           string    `json:"name"`
+	//MobilePhone    string    `json:"mobilePhone"`
+	//WorkPhone      string    `json:"workPhone"`
+	//WorkEmail      string    `json:"workEmail"`
+	//CompanyId      int       `json:"companyId"`
+	//DepartmentId   int       `json:"departmentId"`
+	//ParentId       int       `json:"parentId"`
+	//CoachId        int       `json:"coachId"`
+	//Nation         int       `json:"nation"`
+	//CountryId      int       `json:"countryId"`
+	//Gender         int       `json:"gender"`
+	//BirthDay       time.Time `json:"birthDay"`
+	//PlaceOfBirth   string    `json:"placeOfBirth"`
+	//CountryOfBirth int       `json:"countryOfBirth"`
+	//NativePlaceP   int       `json:"nativePlaceP"`
+	//NativePlaceC   int       `json:"nativePlaceC"`
+	//PoliticsStatus string    `json:"politicsStatus"`
+	//Note           string    `json:"note"`
+}
 type BasicInfo struct {
 	ID                 int       `json:"id" bind:"required" msg:"用户名不能为空"`
 	Name               string    `json:"name" bind:"required" msg:"用户名不能为空"`

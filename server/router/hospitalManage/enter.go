@@ -9,4 +9,5 @@ type RouterGroup struct {
 	PartTimePositionRouter
 	DepartmentManageRouter
 	CompanyManageRouter
+	AddressManageRouter
 }

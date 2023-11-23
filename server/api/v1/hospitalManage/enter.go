@@ -13,6 +13,7 @@ type ApiGroup struct {
 	ManagePartTimePositionApi
 	DepartmentManageApi
 	CompanyManageApi
+	AddressManageApi
 }
 
 var (
@@ -24,4 +25,5 @@ var (
 	PartTimePositionService = service.ServiceGroupApp.HospitalManageServiceGroup.PartTimePositionService
 	DepartmentManageService = service.ServiceGroupApp.HospitalManageServiceGroup.DepartmentManageService
 	CompanyManageService    = service.ServiceGroupApp.HospitalManageServiceGroup.CompanyManageService
+	AddressManageService    = service.ServiceGroupApp.HospitalManageServiceGroup.AddressManageService
 )
